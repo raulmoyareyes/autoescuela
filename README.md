@@ -8,11 +8,11 @@ como proyecto para asignaturas de Desarrollo de Aplicaciones Web y Desarrollo Á
 
 ## Componentes del grupo
 
-  <Raúl Moya Reyes
+  >Raúl Moya Reyes
 
-  <Agustín Ruiz Linares
+  >Agustín Ruiz Linares
 
-  <Gabriel Fernández Moral
+  >Gabriel Fernández Moral
 
-  <Manuel José Castro Damas
+  >Manuel José Castro Damas
 
