@@ -3,7 +3,6 @@
     Created on : 15-mar-2013, 22:49:14
     Author     : dev-linux
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
