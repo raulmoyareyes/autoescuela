@@ -9,9 +9,9 @@ $(document).ready(function(){
         $("input").attr("readonly", "readonly");        
         
         if($("#user").val()==="user" && $("#pass").val()==="123456"){
-            window.location="user/index.html";
+            window.location="user/index.jsp";
         }else if($("#user").val()==="admin" && $("#pass").val()==="123456"){
-            window.location="admin/index.html";
+            window.location="admin/index.jsp";
         }else{
             $("#error").fadeIn("slow");
             $("#btnEnter").button("enable");
