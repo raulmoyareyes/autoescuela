@@ -4,6 +4,9 @@
     Author     : dev-linux
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    request.getParameter("enviar");
+%>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -35,17 +38,24 @@
     
     <div class="container">
 
-        <form class="form-signin">
+        <form class="form-signin" method="post">
             <h2 class="form-signin-heading">Iniciar sesión</h2>
-            <input id="user" type="text" class="input-block-level" placeholder="Nombre de usuario"/>
+            <input id="user" type="text" class="input-block-level" placeholder="Nombre de usuario" name="usuario"/>
             <input id="pass" type="password" class="input-block-level" placeholder="Contraseña"/>
             <label id="remember" class="checkbox">
                 <input type="checkbox" value="remember-me"> Recordarme
             </label>
-            <button type="submit" id="btnEnter" class="btn btn-large btn-primary">Entrar</button>
+            <button type="submit" id="btnEnter" name="enviar" class="btn btn-large btn-primary">Entrar</button>
         </form>
 
     </div>
+    <%
+        if(request.getParameter("enviar")!=null){
+     %>
+     <strong>hola</strong>
+    <%   
+        }
+    %>
 
     <!-- container -->
 
