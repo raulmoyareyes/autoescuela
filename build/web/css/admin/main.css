@@ -1,0 +1,26 @@
+
+body{
+    margin: 10px;
+}
+
+.nav-left-bgcolor li{
+    background-color: #f5f5f5;
+    color: #555;
+    cursor: default;
+    border-radius: 4px;
+}
+
+.nav-left-bgcolor li a{
+    color: #555;
+}
+
+@media (min-width: 870px) {
+    .span3{
+        width: 20%;
+    }
+
+    .span9{
+        width: 75%;
+    }
+
+}
