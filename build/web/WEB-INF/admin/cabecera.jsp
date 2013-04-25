@@ -1,8 +1,17 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+
+
+<!--
+ suponemos que para poner el nombre de usuario en el desplegable necesitamos
+ el contexto de sesion aunque antes usando el distpache pasabamos la url
+ ${user.nombre}
+
+-->
 <html lang="es">
     <head>
-        <title>Autoescuela -  Admin</title>
+        <title>Admin - Autoescuela</title>
         <meta charset="UTF-8">
 
         <meta name="description" content="">
@@ -41,7 +50,7 @@
                         <ul class="nav pull-right">
                             <li class="divider-vertical"></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">${user.nombre} <b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuario <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li class="disabled"><a href="#">none</a></li>
                                     <li class="divider"></li>

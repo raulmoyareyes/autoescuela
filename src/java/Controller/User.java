@@ -3,9 +3,8 @@
  */
 package Controller;
 
-import Model.Usuario;
-import Model.UsuarioDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "login", urlPatterns = {"/login"})
-public class Login extends HttpServlet {
+@WebServlet(name = "user", urlPatterns = {"/user"})
+public class User extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -29,35 +28,22 @@ public class Login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        //String action = (request.getPathInfo()!=null?request.getPathInfo():"");
-        String srvUrl = request.getContextPath()+request.getServletPath();
+
+        String action = (request.getPathInfo() != null ? request.getPathInfo() : "");
+        String srvUrl = request.getContextPath() + request.getServletPath();
         RequestDispatcher rd;
-        
+
         request.setAttribute("srvUrl", srvUrl);
-        Usuario u;
-        if(request.getParameter("enviar")!=null){
-            String dni=request.getParameter("usuario");
-            String password=request.getParameter("pass");
-            u = UsuarioDAO.compruebaLogin(dni,password);
-            request.setAttribute("user",u);
-            
-            if(u!=null){
-                if(u.getGrupo()==0){
-                    response.sendRedirect("user");
-                }else{
-                    response.sendRedirect("admin");
-                }
-            }else{
-                rd=request.getRequestDispatcher("/WEB-INF/login/index.jsp");
-                rd.forward(request, response);
-            }
-        }else{
-            u = new Usuario();
-            request.setAttribute("user",u);
-            rd=request.getRequestDispatcher("/WEB-INF/login/index.jsp");
-            rd.forward(request, response);
+
+        if (action.equals("/estadisticas")) {
+            rd = request.getRequestDispatcher("");
+        } else if (action.equals("/test")) {
+            rd = request.getRequestDispatcher("");
+        } else {
+            rd = request.getRequestDispatcher("/WEB-INF/user/index.jsp");
         }
+
+        rd.forward(request, response);
 
     }
 
