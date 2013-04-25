@@ -1,6 +1,7 @@
 
 body{
     margin: 10px;
+    background-color: #ff7f0a;
 }
 
 .nav-left-bgcolor li{
@@ -14,13 +15,24 @@ body{
     color: #555;
 }
 
+.margin-bottom-10 .control-label, .margin-bottom-10 .controls{
+    margin-bottom: 10px;
+}
+
+.centro{
+    background: #fff;
+    border-radius: 3px;
+    padding: 2%;
+    margin-bottom: 20px;
+}
+
 @media (min-width: 870px) {
     .span3{
         width: 20%;
     }
 
     .span9{
-        width: 75%;
+        width: 71%;
     }
 
 }

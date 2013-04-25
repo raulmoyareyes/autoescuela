@@ -4,7 +4,6 @@
 package Controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,7 +39,7 @@ public class User extends HttpServlet {
         } else if (action.equals("/test")) {
             rd = request.getRequestDispatcher("");
         } else {
-            rd = request.getRequestDispatcher("/WEB-INF/user/index.jsp");
+            rd = request.getRequestDispatcher("/usuarios");
         }
 
         rd.forward(request, response);

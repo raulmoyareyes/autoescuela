@@ -44,6 +44,7 @@ public class Login extends HttpServlet {
             
             if(u!=null){
                 if(u.getGrupo()==0){
+                    
                     response.sendRedirect("user");
                 }else{
                     response.sendRedirect("admin");

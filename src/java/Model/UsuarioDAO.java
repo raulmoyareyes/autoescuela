@@ -13,7 +13,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-
 public class UsuarioDAO {
 
     private static Connection cnx;
@@ -79,6 +78,33 @@ public class UsuarioDAO {
             }
         }
         return c;
+    }
+
+    public static boolean insertaUsuario(Usuario u) {
+        boolean salida = false;
+        if (openConexion() != null) {
+            try {
+                String qry = "INSERT INTO usuarios VALUES(?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement stmn = cnx.prepareStatement(qry);
+                stmn.setString(1, u.getNombre());
+                stmn.setString(2, u.getApellidos());
+                stmn.setString(3, u.getDni());
+                stmn.setString(4, u.getDireccion());
+                stmn.setString(5, u.getTlf());
+                stmn.setString(6, u.getPassword());
+                stmn.setInt(7, u.getGrupo());
+
+                if (stmn.executeUpdate() > 0) {
+                    salida = true;
+                }
+                
+                stmn.close();
+                closeConexion();
+            } catch (Exception ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            }
+        }
+        return salida;
     }
 
     public static Usuario compruebaLogin(String DNI, String pass) {

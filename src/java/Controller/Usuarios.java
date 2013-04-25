@@ -1,9 +1,11 @@
 /*
- * 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
  */
 package Controller;
 
 import Model.Usuario;
+import Model.UsuarioDAO;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,8 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "admin", urlPatterns = {"/admin"})
-public class Admin extends HttpServlet {
+
+@WebServlet(name = "usuarios", urlPatterns = {"/admin/usuarios"})
+public class Usuarios extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -29,55 +32,36 @@ public class Admin extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String action = (request.getPathInfo() != null ? request.getPathInfo() : "");
+        //String action = (request.getPathInfo()!=null?request.getPathInfo():"");
         String srvUrl = request.getContextPath() + request.getServletPath();
         RequestDispatcher rd;
 
         request.setAttribute("srvUrl", srvUrl);
-
-        if (action.equals("/usuarios")) {
-            rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios.jsp");
-            rd.forward(request, response);
-        } else if (action.equals("/preguntas")) {
-            rd = request.getRequestDispatcher("");
-            rd.forward(request, response);
-        } else {
-            rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios.jsp");
-            rd.forward(request, response);
-            if (request.getParameter("crear") != null) {
-                Usuario u = gestUsuarios(request, response);
-            }
-            //response.sendRedirect("admin/usuarios");
-        }
-
-
-    }
-
-    private Usuario gestUsuarios(HttpServletRequest request, HttpServletResponse response) {
-        String nombre = request.getParameter("nombre");
-        String apellidos = request.getParameter("apellidos");
-        String dni = request.getParameter("dni");
-        String direccion = request.getParameter("direccion");
-        String tlf = request.getParameter("telefono");
-        String password = request.getParameter("pass");
-        String password2 = request.getParameter("pass2");
+        String nombre=request.getParameter("nombre");
+        String apellidos=request.getParameter("apellidos");
+        String dni=request.getParameter("dni");
+        String direccion=request.getParameter("direccion");
+        String tlf=request.getParameter("telefono");
+        String password=request.getParameter("pass");
+        String password2=request.getParameter("pass2");
         int grupo;
-        //f(request.getParameter("tipo").equals("alumno")){
-        grupo = 0;
+       //f(request.getParameter("tipo").equals("alumno")){
+            grupo=0;
         //}else{
-        //  grupo=1;
+          //  grupo=1;
         //}
-
+        
         Usuario u;
         //debemos comprobar que las contraseñas coinciden password y password2
-        u = new Usuario(nombre, apellidos, dni, direccion, tlf, password, grupo);
+        u = new Usuario(nombre, apellidos, dni, direccion, tlf, password2, grupo);
+        request.setAttribute("user", u);
+        UsuarioDAO.insertaUsuario(u);
+        rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios.jsp");
+        rd.forward(request, response);
         
-        
-
-        return u;
     }
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
      * <code>GET</code> method.
