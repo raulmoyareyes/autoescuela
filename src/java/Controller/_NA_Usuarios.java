@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(name = "jejeje", urlPatterns = {"jejeje"})
+@WebServlet(name = "/jejeje", urlPatterns = {"/jejeje"})
 public class _NA_Usuarios extends HttpServlet {
 
     /**
