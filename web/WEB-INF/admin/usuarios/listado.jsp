@@ -1,5 +1,5 @@
 <jsp:include page="/WEB-INF/admin/cabecera.jsp"/>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- container -->
 <div class="row">
 
@@ -23,14 +23,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Hola</td>
-                        <td>Adios</td>
-                        <td>Hola</td>
-                        <td>Adios</td>
-                        <td>Hola</td>
-                        <td>Adios</td>
-                    </tr>
+                    <c:forEach var="u" items="${usuarios}" varStatus="estado">
+                        <tr>
+                            <td>${u.nombre}</td>
+                            <td>${u.apellidos}</td>
+                            <td>${u.dni}</td>
+                            <td>${u.direccion}</td>
+                            <td>${u.telefono}</td>
+                            <td>${u.grupo}</td>
+                        </tr>
+                    </c:forEach>
                 </tbody>
             </table>
         </section>
