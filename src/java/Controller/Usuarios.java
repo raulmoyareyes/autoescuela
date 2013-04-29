@@ -39,18 +39,22 @@ public class Usuarios extends HttpServlet {
 
         if (action.equals("/nuevo")) {
             rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/nuevo.jsp");
+            rd.forward(request, response);
         } else if (action.equals("/listado")) {
             rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/listado.jsp");
+            rd.forward(request, response);
         } else if (action.equals("/preparados")) {
             rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/preparados.jsp");
+            rd.forward(request, response);
         } else if (action.equals("/modifica")) {
             rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/modifica.jsp");
+            rd.forward(request, response);
         } else if (action.equals("/elimina")) {
             rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/listado.jsp");
+            rd.forward(request, response);
         }else {
-            rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/nuevo.jsp");
+            response.sendRedirect("/usuarios/listado");
         }
-        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
