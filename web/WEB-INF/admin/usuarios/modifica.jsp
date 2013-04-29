@@ -8,52 +8,52 @@
     <div class="span9 centro">
         <section>
             <div class="page-header">
-                <h1>Nuevo usuario</h1>
+                <h1>Modificar usuario</h1>
             </div>
             <form class="form-horizontal" method="post">
                 <div class="control-group margin-bottom-10">
                     <label class="control-label" for="inputNombre">Nombre</label>
                     <div class="controls">
-                        <input class="span5" type="text" id="inputNombre" name="nombre" placeholder="Escriba su nombre">
+                        <input class="span5" type="text" id="inputNombre" name="nombre" placeholder="Escriba su nombre" value="${user.nombre}" />
                     </div>
 
                     <label class="control-label" for="inputApellidos">Apellidos</label>
                     <div class="controls">
-                        <input class="span5" type="text" id="inputApellidos" name="apellidos" placeholder="Escriba sus apellidos">
+                        <input class="span5" type="text" id="inputApellidos" name="apellidos" placeholder="Escriba sus apellidos" value="${user.apellidos}" />
                     </div>
 
                     <label class="control-label" for="inputDNI">DNI</label>
                     <div class="controls">
-                        <input class="span5" type="text" id="inputDNI" name="dni" placeholder="Escriba su DNI">
+                        <input class="span5" type="text" id="inputDNI" name="dni" placeholder="Escriba su DNI" value="${user.dni}" />
                     </div>
 
                     <label class="control-label" for="inputPass">Contraseña</label>
                     <div class="controls">
-                        <input class="span5" type="password" id="inputPass" name="pass" placeholder="Escriba su contraseña">
+                        <input class="span5" type="password" id="inputPass" name="pass" placeholder="Escriba su contraseña" value="${user.pass}" />
                     </div>
 
                     <label class="control-label" for="inputPass2">Confirmar contraseña</label>
                     <div class="controls">
-                        <input class="span5" type="password" id="inputPass2" name="pass2" placeholder="Confirme su contraseña">
+                        <input class="span5" type="password" id="inputPass2" name="pass2" placeholder="Confirme su contraseña" value="${user.pass2}" />
                     </div>
                 </div>
 
                 <div class="control-group margin-bottom-10">
                     <label class="control-label" for="inputDireccion">Dirección</label>
                     <div class="controls">
-                        <input class="span5" type="text" id="inputDireccion" name="direccion" placeholder="Escriba su dirección">
+                        <input class="span5" type="text" id="inputDireccion" name="direccion" placeholder="Escriba su dirección" value="${user.direccion}" />
                     </div>
 
                     <label class="control-label" for="inputTelefono">Teléfono</label>
                     <div class="controls">
-                        <input class="span5" type="text" id="inputTelefono" name="telefono" placeholder="Escriba su teléfono">
+                        <input class="span5" type="text" id="inputTelefono" name="telefono" placeholder="Escriba su teléfono" value="${user.telefono}" />
                     </div>
 
                     <label class="control-label" for="inputTipo">Tipo de usuario</label>
                     <div class="controls">
                         <select id="inputTipo" class="span5" name="tipo">
-                            <option id="alumno">Alumno</option>
-                            <option id="administrador">Administrador</option>
+                            <option id="alumno" ${(user.tipo == 'usuario')?'selected':''}>Alumno</option>
+                            <option id="administrador"${(user.tipo == 'administrador')?'selected':''}>Administrador</option>
                         </select>
                     </div>
                 </div>

@@ -11,7 +11,7 @@
                 <h1>Listado de usuarios</h1>
             </div>
             <table class="table-condensed table-bordered table-hover">
-                <caption>...</caption>
+                <caption>Alumnado</caption>
                 <thead>
                     <tr>
                         <th>Nombre</th>
