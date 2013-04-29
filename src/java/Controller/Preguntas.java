@@ -38,7 +38,7 @@ public class Preguntas extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Preguntas</title>");            
+            out.println("<title>Servlet Preguntas</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Preguntas at " + request.getContextPath() + "</h1>");
