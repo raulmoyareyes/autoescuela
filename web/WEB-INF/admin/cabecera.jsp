@@ -43,8 +43,8 @@
                     <div class="nav-collapse collapse">
                         <!-- .nav, .navbar-search, .navbar-form, etc -->
                         <ul class="nav">
-                            <li class="active"><a href="/autoescuela-master/usuarios">Usuarios</a></li>
-                            <li><a href="/autoescuela-master/preguntas">Preguntas</a></li>
+                            <li class="active"><a href="/autoescuelar/usuarios">Usuarios</a></li>
+                            <li><a href="/autoescuela/preguntas">Preguntas</a></li>
                         </ul>
 
                         <ul class="nav pull-right">
@@ -54,7 +54,7 @@
                                 <ul class="dropdown-menu">
                                     <li class="disabled"><a href="#">none</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="/autoescuela-master">Cerrar sesión</a></li>
+                                    <li><a href="/autoescuela">Cerrar sesión</a></li>
                                     <!--<li class="text-center"><button type="submit" class="btn btn-warning" name="close" >Cerrar sesión</button>-->
                                 </ul>
                             </li>
