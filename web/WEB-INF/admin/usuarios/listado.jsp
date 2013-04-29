@@ -10,7 +10,7 @@
             <div class="page-header">
                 <h1>Listado de usuarios</h1>
             </div>
-            <table class="table-condensed table-bordered table-hover">
+            <table class="table-condensed table-bordered table-hover width100">
                 <caption>Alumnado</caption>
                 <thead>
                     <tr>
@@ -31,7 +31,8 @@
                             <td>${u.dni}</td>
                             <td>${u.direccion}</td>
                             <td>${u.telefono}</td>
-                            <td>${u.grupo}</td>
+                            <td>${u.grupo==0?'Usuario':'Administrador/a'}</td>
+                            <td>&nbsp;</td>
                         </tr>
                     </c:forEach>
                 </tbody>
