@@ -6,7 +6,6 @@ package Controller;
 import Model.Usuario;
 import Model.UsuarioDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -42,17 +41,16 @@ public class Usuarios extends HttpServlet {
         if (action.equals("/nuevo")) {
             
             if(request.getParameter("crear")!=null){
-                nuevoUsuario(request, response);
-                rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/listado.jsp");
+                //nuevoUsuario(request, response);
+                response.sendRedirect("usuarios/listado");
             }else{
                 rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/nuevo.jsp");
+                rd.forward(request, response);
             }
-            rd.forward(request, response);
             
         } else if (action.equals("/listado")) {
             
             List<Usuario> userList = UsuarioDAO.buscaTodos();
-            
             request.setAttribute("userList", userList);
             rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/listado.jsp");
             rd.forward(request, response);
@@ -80,12 +78,17 @@ public class Usuarios extends HttpServlet {
         String tlf = request.getParameter("telefono");
         String password = request.getParameter("pass");
         String password2 = request.getParameter("pass2");
+        
+        if(password.equals(password2)){
+            
+        }
+        
         int grupo;
-        //f(request.getParameter("tipo").equals("alumno")){
-        grupo = 0;
-        //}else{
-        //  grupo=1;
-        //}
+        if(request.getParameter("tipo").equals("alumno")){
+            grupo=0;
+        }else {
+            grupo=1;
+        }
 
         //debemos comprobar que las contraseñas coinciden password y password2
         Usuario u = new Usuario(nombre, apellidos, dni, direccion, tlf, password, grupo);
