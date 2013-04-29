@@ -20,10 +20,11 @@
                         <th>Dirección</th>
                         <th>Teléfono</th>
                         <th>Grupo</th>
+                        <th>&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="u" items="${usuarios}" varStatus="estado">
+                    <c:forEach var="u" items="${userList}" varStatus="estado">
                         <tr>
                             <td>${u.nombre}</td>
                             <td>${u.apellidos}</td>
