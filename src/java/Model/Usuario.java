@@ -9,7 +9,7 @@ public class Usuario {
     private String apellidos;
     private String dni;
     private String direccion;
-    private String tlf;
+    private String telefono;
     private String password;
     private int grupo;
 
@@ -17,11 +17,11 @@ public class Usuario {
     public Usuario(){}
     
     public Usuario(String _nombre, String _apellidos, String _dni, String _password){
-        nombre=_nombre; apellidos=_apellidos; dni=_dni; direccion=null; tlf=null; password=_password;
+        nombre=_nombre; apellidos=_apellidos; dni=_dni; direccion=null; telefono=null; password=_password;
     }
     
     public Usuario(String _nombre, String _apellidos, String _dni, String _direccion, String _tlf, String _password, int _grupo){
-        nombre=_nombre; apellidos=_apellidos; dni=_dni; direccion=_direccion; tlf=_tlf; password=_password; grupo=_grupo;
+        nombre=_nombre; apellidos=_apellidos; dni=_dni; direccion=_direccion; telefono=_tlf; password=_password; grupo=_grupo;
         
     }
     
@@ -82,17 +82,17 @@ public class Usuario {
     }
 
     /**
-     * @return the tlf
+     * @return the telefono
      */
-    public String getTlf() {
-        return tlf;
+    public String getTelefono() {
+        return telefono;
     }
 
     /**
-     * @param tlf the tlf to set
+     * @param telefono the telefono to set
      */
-    public void setTlf(String tlf) {
-        this.tlf = tlf;
+    public void setTelefono(String tlf) {
+        this.telefono = tlf;
     }
 
     /**

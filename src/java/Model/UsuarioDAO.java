@@ -92,7 +92,7 @@ public class UsuarioDAO {
                 stmn.setString(2, u.getApellidos());
                 stmn.setString(3, u.getDni());
                 stmn.setString(4, u.getDireccion());
-                stmn.setString(5, u.getTlf());
+                stmn.setString(5, u.getTelefono());
                 stmn.setString(6, u.getPassword());
                 stmn.setInt(7, u.getGrupo());
 
