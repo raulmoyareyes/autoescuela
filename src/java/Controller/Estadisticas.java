@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "preguntas", urlPatterns = {"/preguntas"})
-public class Preguntas extends HttpServlet {
+@WebServlet(name = "estadisticas", urlPatterns = {"/estadisticas"})
+public class Estadisticas extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -33,10 +33,10 @@ public class Preguntas extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Preguntas</title>");
+            out.println("<title>Servlet Estadisticas</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Preguntas at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Estadisticas at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         } finally {            

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "user", urlPatterns = {"/user"})
-public class User extends HttpServlet {
+public class _NA_User extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
