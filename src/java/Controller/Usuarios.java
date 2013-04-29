@@ -7,6 +7,7 @@ import Model.Usuario;
 import Model.UsuarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,22 +35,28 @@ public class Usuarios extends HttpServlet {
 
         String action = (request.getPathInfo() != null ? request.getPathInfo() : "");
         String srvUrl = request.getContextPath() + request.getServletPath();
-        RequestDispatcher rd;
 
+        RequestDispatcher rd;
         request.setAttribute("srvUrl", srvUrl);
 
         if (action.equals("/nuevo")) {
             
             if(request.getParameter("crear")!=null){
                 nuevoUsuario(request, response);
-                
+                rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/listado.jsp");
+            }else{
+                rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/nuevo.jsp");
             }
-            
-            rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/nuevo.jsp");
             rd.forward(request, response);
+            
         } else if (action.equals("/listado")) {
+            
+            List<Usuario> userList = UsuarioDAO.buscaTodos();
+            
+            request.setAttribute("userList", userList);
             rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/listado.jsp");
             rd.forward(request, response);
+            
         } else if (action.equals("/preparados")) {
             rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/preparados.jsp");
             rd.forward(request, response);
