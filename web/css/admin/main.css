@@ -19,6 +19,10 @@ body{
     margin-bottom: 10px;
 }
 
+.width100{
+    width: 100%;
+}
+
 .centro{
     background: #fff;
     border-radius: 3px;
