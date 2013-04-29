@@ -36,17 +36,17 @@ public class Admin extends HttpServlet {
         request.setAttribute("srvUrl", srvUrl);
 
         if (action.equals("/usuarios")) {
-            rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios.jsp");
+            rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/nuevoUsuario.jsp");
             rd.forward(request, response);
         } else if (action.equals("/preguntas")) {
             rd = request.getRequestDispatcher("");
             rd.forward(request, response);
         } else {
-            rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios.jsp");
-            rd.forward(request, response);
             if (request.getParameter("crear") != null) {
                 Usuario u = gestUsuarios(request, response);
             }
+            rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/nuevoUsuario.jsp");
+            rd.forward(request, response);
             //response.sendRedirect("admin/usuarios");
         }
 
@@ -72,8 +72,6 @@ public class Admin extends HttpServlet {
         //debemos comprobar que las contraseñas coinciden password y password2
         u = new Usuario(nombre, apellidos, dni, direccion, tlf, password, grupo);
         
-        
-
         return u;
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

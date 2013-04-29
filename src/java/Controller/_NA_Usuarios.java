@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @WebServlet(name = "usuarios", urlPatterns = {"/admin/usuarios"})
-public class Usuarios extends HttpServlet {
+public class _NA_Usuarios extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -56,7 +56,7 @@ public class Usuarios extends HttpServlet {
         u = new Usuario(nombre, apellidos, dni, direccion, tlf, password2, grupo);
         request.setAttribute("user", u);
         UsuarioDAO.insertaUsuario(u);
-        rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios.jsp");
+        rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/nuevoUsuario.jsp");
         rd.forward(request, response);
         
     }
