@@ -43,8 +43,8 @@
                     <div class="nav-collapse collapse">
                         <!-- .nav, .navbar-search, .navbar-form, etc -->
                         <ul class="nav">
-                            <li class="active"><a href="#">Usuarios</a></li>
-                            <li><a href="#">Preguntas</a></li>
+                            <li class="active"><a href="/autoescuela-master/usuarios">Usuarios</a></li>
+                            <li><a href="/autoescuela-master/preguntas">Preguntas</a></li>
                         </ul>
 
                         <ul class="nav pull-right">

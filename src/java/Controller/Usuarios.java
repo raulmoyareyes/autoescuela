@@ -4,6 +4,7 @@
 package Controller;
 
 import Model.Usuario;
+import Model.UsuarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -38,6 +39,12 @@ public class Usuarios extends HttpServlet {
         request.setAttribute("srvUrl", srvUrl);
 
         if (action.equals("/nuevo")) {
+            
+            if(request.getParameter("crear")!=null){
+                nuevoUsuario(request, response);
+                
+            }
+            
             rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/nuevo.jsp");
             rd.forward(request, response);
         } else if (action.equals("/listado")) {
@@ -52,9 +59,35 @@ public class Usuarios extends HttpServlet {
         } else if (action.equals("/elimina")) {
             rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/listado.jsp");
             rd.forward(request, response);
-        }else {
+        } else {
             response.sendRedirect("usuarios/listado");
         }
+    }
+
+    private boolean nuevoUsuario(HttpServletRequest request, HttpServletResponse response) {
+        
+        String nombre = request.getParameter("nombre");
+        String apellidos = request.getParameter("apellidos");
+        String dni = request.getParameter("dni");
+        String direccion = request.getParameter("direccion");
+        String tlf = request.getParameter("telefono");
+        String password = request.getParameter("pass");
+        String password2 = request.getParameter("pass2");
+        int grupo;
+        //f(request.getParameter("tipo").equals("alumno")){
+        grupo = 0;
+        //}else{
+        //  grupo=1;
+        //}
+
+        //debemos comprobar que las contraseñas coinciden password y password2
+        Usuario u = new Usuario(nombre, apellidos, dni, direccion, tlf, password, grupo);
+        if(UsuarioDAO.insertaUsuario(u)){
+            return true;
+        }else{
+            return false;
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
