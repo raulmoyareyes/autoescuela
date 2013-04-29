@@ -18,9 +18,9 @@
         <meta name="viewport" content="width=device-width">
         <link rel="shortcut icon" href="img/favicon.png" />
 
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
-        <link rel="stylesheet" href="css/admin/main.css">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="../css/admin/main.css">
 
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     </head>

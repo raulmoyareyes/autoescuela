@@ -3,7 +3,7 @@
 <!-- container -->
 <div class="row">
 
-    <jsp:include page="/WEB-INF/admin/usuarios/menu.jsp?op=list"/>
+    <jsp:include page="/WEB-INF/admin/usuarios/menu.jsp?op=exam"/>
 
     <div class="span9 centro">
         <section>
