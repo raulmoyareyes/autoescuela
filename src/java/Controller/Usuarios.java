@@ -3,17 +3,16 @@
  */
 package Controller;
 
-import Model.Usuario;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "admin", urlPatterns = {"/admin"})
-public class Admin extends HttpServlet {
+@WebServlet(name = "usuarios", urlPatterns = {"/usuarios"})
+public class Usuarios extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -28,54 +27,24 @@ public class Admin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        String action = (request.getPathInfo() != null ? request.getPathInfo() : "");
-        String srvUrl = request.getContextPath() + request.getServletPath();
-        RequestDispatcher rd;
-
-        request.setAttribute("srvUrl", srvUrl);
-
-        if (action.equals("/usuarios")) {
-            rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/nuevoUsuario.jsp");
-            rd.forward(request, response);
-        } else if (action.equals("/preguntas")) {
-            rd = request.getRequestDispatcher("");
-            rd.forward(request, response);
-        } else {
-            if (request.getParameter("crear") != null) {
-                Usuario u = gestUsuarios(request, response);
-            }
-            rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/nuevoUsuario.jsp");
-            rd.forward(request, response);
-            //response.sendRedirect("admin/usuarios");
+        PrintWriter out = response.getWriter();
+        try {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet Usuarios</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet Usuarios at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        } finally {            
+            out.close();
         }
-
-
     }
 
-    private Usuario gestUsuarios(HttpServletRequest request, HttpServletResponse response) {
-        String nombre = request.getParameter("nombre");
-        String apellidos = request.getParameter("apellidos");
-        String dni = request.getParameter("dni");
-        String direccion = request.getParameter("direccion");
-        String tlf = request.getParameter("telefono");
-        String password = request.getParameter("pass");
-        String password2 = request.getParameter("pass2");
-        int grupo;
-        //f(request.getParameter("tipo").equals("alumno")){
-        grupo = 0;
-        //}else{
-        //  grupo=1;
-        //}
-
-        Usuario u;
-        //debemos comprobar que las contraseñas coinciden password y password2
-        u = new Usuario(nombre, apellidos, dni, direccion, tlf, password, grupo);
-        
-        return u;
-    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-
     /**
      * Handles the HTTP
      * <code>GET</code> method.
