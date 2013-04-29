@@ -16,13 +16,13 @@
 
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-        <link rel="shortcut icon" href="img/favicon.png" />
+        <link rel="shortcut icon" href="../img/favicon.png" />
 
         <link rel="stylesheet" href="../css/bootstrap.min.css">
         <link rel="stylesheet" href="../css/bootstrap-responsive.min.css">
         <link rel="stylesheet" href="../css/admin/main.css">
 
-        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <script src="../js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     </head>
     <body>
         <div class="navbar navbar-inverse">
@@ -54,11 +54,12 @@
                                 <ul class="dropdown-menu">
                                     <li class="disabled"><a href="#">none</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="${srvUrl}">Cerrar sesión</a></li>
+                                    <li><a href="/autoescuela-master">Cerrar sesión</a></li>
                                     <!--<li class="text-center"><button type="submit" class="btn btn-warning" name="close" >Cerrar sesión</button>-->
                                 </ul>
                             </li>
                         </ul>
+                                    
                     </div>
 
                 </div>
