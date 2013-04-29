@@ -53,7 +53,7 @@ public class Usuarios extends HttpServlet {
             rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/listado.jsp");
             rd.forward(request, response);
         }else {
-            response.sendRedirect("/usuarios/listado");
+            response.sendRedirect("usuarios/listado");
         }
     }
 
