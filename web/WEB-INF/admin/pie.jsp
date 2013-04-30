@@ -1,10 +1,11 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
             <footer class="well well-large">
             <p>&COPY; 2013 - Todos los derechos reservados.</p>
             <ul class="nav nav-pills">
                 <li><a href="#">Castro Damas, Manuel J.</a></li>
-                <li><a href="#">Fernández Moral, Gabriel</a></li>
-                <li><a href="#">Moya Reyes, Raúl</a></li>
-                <li><a href="#">Ruiz Linares, Agustín</a></li>
+                <li><a href="#">FernÃ¡ndez Moral, Gabriel</a></li>
+                <li><a href="#">Moya Reyes, RaÃºl</a></li>
+                <li><a href="#">Ruiz Linares, AgustÃ­n</a></li>
             </ul>
         </footer>
 

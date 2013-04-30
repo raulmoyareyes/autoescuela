@@ -1,5 +1,6 @@
-<jsp:include page="/WEB-INF/admin/cabecera.jsp"/>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="/WEB-INF/admin/cabecera.jsp"/>
 <!-- container -->
 <div class="row">
 
@@ -10,17 +11,16 @@
             <div class="page-header">
                 <h1>Listado de usuarios</h1>
             </div>
-            <table class="table-condensed table-bordered table-hover width100">
-                <caption>Alumnado</caption>
+            <table class="table table-striped table-condensed table-hover width100">
                 <thead>
                     <tr>
                         <th>Nombre</th>
                         <th>Apellidos</th>
                         <th>DNI</th>
-                        <th>Dirección</th>
-                        <th>Teléfono</th>
+                        <th>DirecciÃ³n</th>
+                        <th>TelÃ©fono</th>
                         <th>Grupo</th>
-                        <th>&nbsp;</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,7 +32,10 @@
                             <td>${u.direccion}</td>
                             <td>${u.telefono}</td>
                             <td>${u.grupo==0?'Usuario':'Administrador/a'}</td>
-                            <td>&nbsp;</td>
+                            <td>
+                                <a href="/autoescuela/usuarios/elimina"><i class="icon-remove"></i></a>
+                                <a href="/autoescuela/usuarios/modifica?id=${u.dni}"><i class="icon-pencil"></i></a>
+                            </td>
                         </tr>
                     </c:forEach>
                 </tbody>

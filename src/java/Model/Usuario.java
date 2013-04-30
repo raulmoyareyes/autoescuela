@@ -1,10 +1,10 @@
 /*
  * 
  */
-
 package Model;
 
 public class Usuario {
+
     private String nombre;
     private String apellidos;
     private String dni;
@@ -13,18 +13,29 @@ public class Usuario {
     private String password;
     private int grupo;
 
-    
-    public Usuario(){}
-    
-    public Usuario(String _nombre, String _apellidos, String _dni, String _password){
-        nombre=_nombre; apellidos=_apellidos; dni=_dni; direccion=null; telefono=null; password=_password;
+    public Usuario() {
     }
-    
-    public Usuario(String _nombre, String _apellidos, String _dni, String _direccion, String _tlf, String _password, int _grupo){
-        nombre=_nombre; apellidos=_apellidos; dni=_dni; direccion=_direccion; telefono=_tlf; password=_password; grupo=_grupo;
-        
+
+    public Usuario(String _nombre, String _apellidos, String _dni, String _password) {
+        nombre = _nombre;
+        apellidos = _apellidos;
+        dni = _dni;
+        direccion = null;
+        telefono = null;
+        password = _password;
     }
-    
+
+    public Usuario(String _nombre, String _apellidos, String _dni, String _direccion, String _tlf, String _password, int _grupo) {
+        nombre = _nombre;
+        apellidos = _apellidos;
+        dni = _dni;
+        direccion = _direccion;
+        telefono = _tlf;
+        password = _password;
+        grupo = _grupo;
+
+    }
+
     /**
      * @return the nombre
      */
@@ -122,6 +133,4 @@ public class Usuario {
     public void setGrupo(int grupo) {
         this.grupo = grupo;
     }
-    
-    
 }

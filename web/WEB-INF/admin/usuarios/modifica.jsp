@@ -1,15 +1,22 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/admin/cabecera.jsp"/>
 
 <!-- container -->
 <div class="row">
 
-    <jsp:include page="/WEB-INF/admin/usuarios/menu.jsp?op=new"/>
+    <jsp:include page="/WEB-INF/admin/usuarios/menu.jsp"/>
 
     <div class="span9 centro">
         <section>
             <div class="page-header">
                 <h1>Modificar usuario</h1>
             </div>
+            <c:if test="${noModificado == 'true'}">
+                <div class="alert alert-error">
+                    El usuario no se ha modificado. Intentelo de nuevo.
+                </div>
+            </c:if>
             <form class="form-horizontal" method="post">
                 <div class="control-group margin-bottom-10">
                     <label class="control-label" for="inputNombre">Nombre</label>
@@ -27,40 +34,40 @@
                         <input class="span5" type="text" id="inputDNI" name="dni" placeholder="Escriba su DNI" value="${user.dni}" />
                     </div>
 
-                    <label class="control-label" for="inputPass">Contraseña</label>
+                    <label class="control-label" for="inputPass">ContraseÃ±a</label>
                     <div class="controls">
-                        <input class="span5" type="password" id="inputPass" name="pass" placeholder="Escriba su contraseña" value="${user.pass}" />
+                        <input class="span5" type="password" id="inputPass" name="pass" placeholder="Escriba su contraseÃ±a" value="${user.password}" />
                     </div>
 
-                    <label class="control-label" for="inputPass2">Confirmar contraseña</label>
+                    <label class="control-label" for="inputPass2">Confirmar contraseÃ±a</label>
                     <div class="controls">
-                        <input class="span5" type="password" id="inputPass2" name="pass2" placeholder="Confirme su contraseña" value="${user.pass2}" />
+                        <input class="span5" type="password" id="inputPass2" name="pass2" placeholder="Confirme su contraseÃ±a" value="${user.password}" />
                     </div>
                 </div>
 
                 <div class="control-group margin-bottom-10">
-                    <label class="control-label" for="inputDireccion">Dirección</label>
+                    <label class="control-label" for="inputDireccion">DirecciÃ³n</label>
                     <div class="controls">
-                        <input class="span5" type="text" id="inputDireccion" name="direccion" placeholder="Escriba su dirección" value="${user.direccion}" />
+                        <input class="span5" type="text" id="inputDireccion" name="direccion" placeholder="Escriba su direcciÃ³n" value="${user.direccion}" />
                     </div>
 
-                    <label class="control-label" for="inputTelefono">Teléfono</label>
+                    <label class="control-label" for="inputTelefono">TelÃ©fono</label>
                     <div class="controls">
-                        <input class="span5" type="text" id="inputTelefono" name="telefono" placeholder="Escriba su teléfono" value="${user.telefono}" />
+                        <input class="span5" type="text" id="inputTelefono" name="telefono" placeholder="Escriba su telÃ©fono" value="${user.telefono}" />
                     </div>
 
                     <label class="control-label" for="inputTipo">Tipo de usuario</label>
                     <div class="controls">
                         <select id="inputTipo" class="span5" name="tipo">
-                            <option id="alumno" ${(user.tipo == 'usuario')?'selected':''}>Alumno</option>
-                            <option id="administrador"${(user.tipo == 'administrador')?'selected':''}>Administrador</option>
+                            <option id="alumno" ${(user.grupo == 0)?'selected':''}>Alumno</option>
+                            <option id="administrador"${(user.grupo == 1)?'selected':''}>Administrador</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" name="crear" class="btn btn-primary">Crear usuario</button>
-                    <button type="reset" class="btn">Limpiar</button>
+                    <button type="submit" name="guardar" class="btn btn-primary">Guardar</button>
+                    <button type="reset" class="btn">Restaurar</button>
                 </div>
 
             </form>

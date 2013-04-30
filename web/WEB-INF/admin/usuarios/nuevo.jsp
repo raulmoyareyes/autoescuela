@@ -1,5 +1,6 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/admin/cabecera.jsp"/>
-
 <!-- container -->
 <div class="row">
 
@@ -10,6 +11,11 @@
             <div class="page-header">
                 <h1>Nuevo usuario</h1>
             </div>
+            <c:if test="${noCreado == 'true'}">
+                <div class="alert alert-error">
+                    El usuario no se ha creado. Intentelo de nuevo.
+                </div>
+            </c:if>
             <form class="form-horizontal" method="post">
                 <div class="control-group margin-bottom-10">
                     <label class="control-label" for="inputNombre">Nombre</label>
@@ -27,26 +33,26 @@
                         <input class="span5" type="text" id="inputDNI" name="dni" placeholder="Escriba su DNI" />
                     </div>
 
-                    <label class="control-label" for="inputPass">Contraseña</label>
+                    <label class="control-label" for="inputPass">ContraseÃ±a</label>
                     <div class="controls">
-                        <input class="span5" type="password" id="inputPass" name="pass" placeholder="Escriba su contraseña" />
+                        <input class="span5" type="password" id="inputPass" name="pass" placeholder="Escriba su contraseÃ±a" />
                     </div>
 
-                    <label class="control-label" for="inputPass2">Confirmar contraseña</label>
+                    <label class="control-label" for="inputPass2">Confirmar contraseÃ±a</label>
                     <div class="controls">
-                        <input class="span5" type="password" id="inputPass2" name="pass2" placeholder="Confirme su contraseña" />
+                        <input class="span5" type="password" id="inputPass2" name="pass2" placeholder="Confirme su contraseÃ±a" value="" />
                     </div>
                 </div>
 
                 <div class="control-group margin-bottom-10">
-                    <label class="control-label" for="inputDireccion">Dirección</label>
+                    <label class="control-label" for="inputDireccion">DirecciÃ³n</label>
                     <div class="controls">
-                        <input class="span5" type="text" id="inputDireccion" name="direccion" placeholder="Escriba su dirección" />
+                        <input class="span5" type="text" id="inputDireccion" name="direccion" placeholder="Escriba su direcciÃ³n" />
                     </div>
 
-                    <label class="control-label" for="inputTelefono">Teléfono</label>
+                    <label class="control-label" for="inputTelefono">TelÃ©fono</label>
                     <div class="controls">
-                        <input class="span5" type="text" id="inputTelefono" name="telefono" placeholder="Escriba su teléfono" />
+                        <input class="span5" type="text" id="inputTelefono" name="telefono" placeholder="Escriba su telÃ©fono" />
                     </div>
 
                     <label class="control-label" for="inputTipo">Tipo de usuario</label>

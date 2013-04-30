@@ -1,14 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
-
-
-<!--
- suponemos que para poner el nombre de usuario en el desplegable necesitamos
- el contexto de sesion aunque antes usando el distpache pasabamos la url
- ${user.nombre}
-
--->
 <html lang="es">
     <head>
         <title>Admin - Autoescuela</title>
@@ -37,13 +28,13 @@
                     </a>
 
                     <!-- Be sure to leave the brand out there if you want it shown -->
-                    <a class="brand" href="#">Autoescuela</a>
+                    <a class="brand" href="/autoescuela/usuarios">Autoescuela</a>
 
                     <!-- Everything you want hidden at 940px or less, place within here -->
                     <div class="nav-collapse collapse">
                         <!-- .nav, .navbar-search, .navbar-form, etc -->
                         <ul class="nav">
-                            <li class="active"><a href="/autoescuelar/usuarios">Usuarios</a></li>
+                            <li class="active"><a href="/autoescuela/usuarios">Usuarios</a></li>
                             <li><a href="/autoescuela/preguntas">Preguntas</a></li>
                         </ul>
 

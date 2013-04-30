@@ -6,6 +6,7 @@ package Controller;
 import Model.Usuario;
 import Model.UsuarioDAO;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,46 +30,72 @@ public class Usuarios extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         response.setContentType("text/html;charset=UTF-8");
-
+        
         String action = (request.getPathInfo() != null ? request.getPathInfo() : "");
         String srvUrl = request.getContextPath() + request.getServletPath();
-
+        
         RequestDispatcher rd;
         request.setAttribute("srvUrl", srvUrl);
+        
+        if (action.equals("/nuevo")) { /////////////////////////////////////////
 
-        if (action.equals("/nuevo")) {
-            
-            if(request.getParameter("crear")!=null){
-                //nuevoUsuario(request, response);
-                response.sendRedirect("usuarios/listado");
-            }else{
+            if (request.getParameter("crear") != null) {
+                if (nuevoUsuario(request, response)) {
+                    response.sendRedirect("listado");
+                } else {
+                    request.setAttribute("noCreado", true);
+                    rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/nuevo.jsp");
+                    rd.forward(request, response);
+                }
+            } else {
                 rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/nuevo.jsp");
                 rd.forward(request, response);
             }
             
-        } else if (action.equals("/listado")) {
-            
+        } else if (action.equals("/listado")) { ////////////////////////////////
+
             List<Usuario> userList = UsuarioDAO.buscaTodos();
             request.setAttribute("userList", userList);
             rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/listado.jsp");
             rd.forward(request, response);
             
-        } else if (action.equals("/preparados")) {
+        } else if (action.equals("/preparados")) { /////////////////////////////
+
             rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/preparados.jsp");
             rd.forward(request, response);
-        } else if (action.equals("/modifica")) {
-            rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/modifica.jsp");
-            rd.forward(request, response);
-        } else if (action.equals("/elimina")) {
+            
+        } else if (action.equals("/modifica")) { ///////////////////////////////
+
+            String dni = (String) request.getParameter("id");
+            Usuario u = UsuarioDAO.buscaDNI(dni);
+            request.setAttribute("user", u);
+            if (request.getParameter("guardar") != null) {
+                if (modificaUsuario(request, response)) {
+                    response.sendRedirect("listado");
+                } else {
+                    request.setAttribute("noModificado", true);
+                    rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/modifica.jsp");
+                    rd.forward(request, response);
+                }
+            } else {
+                rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/modifica.jsp");
+                rd.forward(request, response);
+            }
+            
+        } else if (action.equals("/elimina")) { ////////////////////////////////
+
             rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/listado.jsp");
             rd.forward(request, response);
-        } else {
+            
+        } else { ///////////////////////////////////////////////////////////////
+
             response.sendRedirect("usuarios/listado");
+            
         }
     }
-
+    
     private boolean nuevoUsuario(HttpServletRequest request, HttpServletResponse response) {
         
         String nombre = request.getParameter("nombre");
@@ -79,25 +106,46 @@ public class Usuarios extends HttpServlet {
         String password = request.getParameter("pass");
         String password2 = request.getParameter("pass2");
         
-        if(password.equals(password2)){
-            
+        int grupo;
+        if (request.getParameter("tipo").equals("Alumno")) {
+            grupo = 0;
+        } else {
+            grupo = 1;
         }
+        
+        Usuario u = new Usuario(nombre, apellidos, dni, direccion, tlf, password, grupo);
+        
+        if (password.equals(password2) && !nombre.equals("") && !apellidos.equals("") && !dni.equals("")) {
+            UsuarioDAO.insertaUsuario(u);
+            return true;
+        }
+        return false;
+    }
+    
+    private boolean modificaUsuario(HttpServletRequest request, HttpServletResponse response) {
+        String nombre = request.getParameter("nombre");
+        String apellidos = request.getParameter("apellidos");
+        String dni = request.getParameter("dni");
+        String direccion = request.getParameter("direccion");
+        String tlf = request.getParameter("telefono");
+        String password = request.getParameter("pass");
+        String password2 = request.getParameter("pass2");
         
         int grupo;
-        if(request.getParameter("tipo").equals("alumno")){
-            grupo=0;
-        }else {
-            grupo=1;
-        }
-
-        //debemos comprobar que las contraseñas coinciden password y password2
-        Usuario u = new Usuario(nombre, apellidos, dni, direccion, tlf, password, grupo);
-        if(UsuarioDAO.insertaUsuario(u)){
-            return true;
-        }else{
-            return false;
+        if (request.getParameter("tipo").equals("Alumno")) {
+            grupo = 0;
+        } else {
+            grupo = 1;
         }
         
+        Usuario u = new Usuario(nombre, apellidos, dni, direccion, tlf, password, grupo);
+        
+        if (password.equals(password2) && !nombre.equals("") && !apellidos.equals("") && !dni.equals("")) {
+            String oldDNI = (String) request.getParameter("id");
+            UsuarioDAO.modificaUsuario(u, oldDNI);
+            return true;
+        }
+        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -113,6 +161,7 @@ public class Usuarios extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         processRequest(request, response);
     }
 
@@ -128,6 +177,7 @@ public class Usuarios extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         processRequest(request, response);
     }
 

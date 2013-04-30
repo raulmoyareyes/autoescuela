@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/admin/cabecera.jsp"/>
 
 <!-- container -->
@@ -10,15 +11,14 @@
             <div class="page-header">
                 <h1>Listado de usuarios</h1>
             </div>
-            <table class="table-condensed table-bordered table-hover">
-                <caption>Alumnado preparado para examinarse</caption>
+            <table class="table table-striped table-condensed table-hover width100">
                 <thead>
                     <tr>
                         <th>Nombre</th>
                         <th>Apellidos</th>
                         <th>DNI</th>
-                        <th>Dirección</th>
-                        <th>Teléfono</th>
+                        <th>DirecciÃ³n</th>
+                        <th>TelÃ©fono</th>
                         <th>Grupo</th>
                     </tr>
                 </thead>

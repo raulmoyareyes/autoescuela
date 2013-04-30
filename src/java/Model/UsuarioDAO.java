@@ -151,4 +151,32 @@ public class UsuarioDAO {
         }
         return c;
     }
+    
+        public static boolean modificaUsuario(Usuario u, String DNI) {
+        boolean salida = false;
+        if (openConexion() != null) {
+            try {
+                String qry = "UPDATE usuarios SET nombre=?, apellidos=?, dni=?, direccion=?, telefono=?, password=?, grupo=? WHERE dni=?";
+                PreparedStatement stmn = cnx.prepareStatement(qry);
+                stmn.setString(1, u.getNombre());
+                stmn.setString(2, u.getApellidos());
+                stmn.setString(3, u.getDni());
+                stmn.setString(4, u.getDireccion());
+                stmn.setString(5, u.getTelefono());
+                stmn.setString(6, u.getPassword());
+                stmn.setInt(7, u.getGrupo());
+                stmn.setString(8, DNI);
+
+                if (stmn.executeUpdate() > 0) {
+                    salida = true;
+                }
+                
+                stmn.close();
+                closeConexion();
+            } catch (Exception ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            }
+        }
+        return salida;
+    }
 }
