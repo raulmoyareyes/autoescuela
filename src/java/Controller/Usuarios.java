@@ -6,7 +6,6 @@ package Controller;
 import Model.Usuario;
 import Model.UsuarioDAO;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

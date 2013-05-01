@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page="/WEB-INF/admin/cabecera.jsp"/>
+<jsp:include page="/WEB-INF/admin/cabecera.jsp?op=usuarios"/>
 
 <!-- container -->
 <div class="row">

@@ -34,8 +34,8 @@
                     <div class="nav-collapse collapse">
                         <!-- .nav, .navbar-search, .navbar-form, etc -->
                         <ul class="nav">
-                            <li class="active"><a href="/autoescuela/usuarios">Usuarios</a></li>
-                            <li><a href="/autoescuela/preguntas">Preguntas</a></li>
+                            <li class="${(param.op == 'usuarios')?'active':''}"><a href="/autoescuela/usuarios">Usuarios</a></li>
+                            <li class="${(param.op == 'preguntas')?'active':''}"><a href="/autoescuela/preguntas">Preguntas</a></li>
                         </ul>
 
                         <ul class="nav pull-right">

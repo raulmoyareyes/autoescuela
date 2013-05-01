@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:include page="/WEB-INF/admin/cabecera.jsp"/>
+<jsp:include page="/WEB-INF/admin/cabecera.jsp?op=usuarios"/>
 
 <!-- container -->
 <div class="row">
