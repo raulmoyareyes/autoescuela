@@ -33,7 +33,7 @@
                             <td>${u.telefono}</td>
                             <td>${u.grupo==0?'Usuario':'Administrador/a'}</td>
                             <td>
-                                <a href="/autoescuela/usuarios/elimina"><i class="icon-remove"></i></a>
+                                <a href="#modalElimina" data-toggle="modal" id="elimina"><i class="icon-remove"></i></a>
                                 <a href="/autoescuela/usuarios/modifica?id=${u.dni}"><i class="icon-pencil"></i></a>
                             </td>
                         </tr>
@@ -41,6 +41,21 @@
                 </tbody>
             </table>
         </section>
+        <!-- Modal para confirmar eliminación -->
+        <div class="modal hide fade" id="modalElimina">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>Eliminar usuario</h3>
+            </div>
+            <div class="modal-body">
+                <p>Se eliminará el siguiente usuario: <span id="nombreUsuarioElimina">xxx</span></p>
+                <p>Esta operación no tendrá vuelta atrás. ¿Desea continuar?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Cancelar</a>
+                <a href="#" id="confirmaElimina" class="btn btn-danger">Eliminar</a>
+            </div>
+        </div>
     </div>
 </div>
 <!-- container -->
