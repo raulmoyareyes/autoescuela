@@ -99,7 +99,7 @@ public class UsuarioDAO {
                 if (stmn.executeUpdate() > 0) {
                     salida = true;
                 }
-                
+
                 stmn.close();
                 closeConexion();
             } catch (Exception ex) {
@@ -129,8 +129,8 @@ public class UsuarioDAO {
         }
         return c;
     }
-    
-    public static List<Usuario> buscaTodos(){
+
+    public static List<Usuario> buscaTodos() {
         List<Usuario> c = null;
         if (openConexion() != null) {
             try {
@@ -138,7 +138,7 @@ public class UsuarioDAO {
                 PreparedStatement stmn = cnx.prepareStatement(qry);
                 ResultSet rs = stmn.executeQuery();
                 c = new ArrayList<Usuario>();
-                while(rs.next()){
+                while (rs.next()) {
                     Usuario aux = recuperaUsuario(rs);
                     c.add(aux);
                 }
@@ -151,8 +151,8 @@ public class UsuarioDAO {
         }
         return c;
     }
-    
-        public static boolean modificaUsuario(Usuario u, String DNI) {
+
+    public static boolean modificaUsuario(Usuario u, String DNI) {
         boolean salida = false;
         if (openConexion() != null) {
             try {
@@ -170,11 +170,35 @@ public class UsuarioDAO {
                 if (stmn.executeUpdate() > 0) {
                     salida = true;
                 }
-                
+
                 stmn.close();
                 closeConexion();
             } catch (Exception ex) {
                 Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                return salida;
+            }
+        }
+        return salida;
+    }
+    
+    public static boolean eliminaUsuario(Usuario u){
+        
+        boolean salida = false;
+        if (openConexion() != null) {
+            try {
+                String qry = "DELETE usuarios WHERE dni=?";
+                PreparedStatement stmn = cnx.prepareStatement(qry);
+                stmn.setString(3, u.getDni());
+
+                if (stmn.executeUpdate() > 0) {
+                    salida = true;
+                }
+
+                stmn.close();
+                closeConexion();
+            } catch (Exception ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                return salida;
             }
         }
         return salida;

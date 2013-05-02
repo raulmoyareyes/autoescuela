@@ -29,15 +29,15 @@ public class Usuarios extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String action = (request.getPathInfo() != null ? request.getPathInfo() : "");
         String srvUrl = request.getContextPath() + request.getServletPath();
-        
+
         RequestDispatcher rd;
         request.setAttribute("srvUrl", srvUrl);
-        
+
         if (action.equals("/nuevo")) { /////////////////////////////////////////
 
             if (request.getParameter("crear") != null) {
@@ -52,19 +52,19 @@ public class Usuarios extends HttpServlet {
                 rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/nuevo.jsp");
                 rd.forward(request, response);
             }
-            
+
         } else if (action.equals("/listado")) { ////////////////////////////////
 
             List<Usuario> userList = UsuarioDAO.buscaTodos();
             request.setAttribute("userList", userList);
             rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/listado.jsp");
             rd.forward(request, response);
-            
+
         } else if (action.equals("/preparados")) { /////////////////////////////
 
             rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/preparados.jsp");
             rd.forward(request, response);
-            
+
         } else if (action.equals("/modifica")) { ///////////////////////////////
 
             String dni = (String) request.getParameter("id");
@@ -82,21 +82,31 @@ public class Usuarios extends HttpServlet {
                 rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/modifica.jsp");
                 rd.forward(request, response);
             }
-            
+
         } else if (action.equals("/elimina")) { ////////////////////////////////
 
-            rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/listado.jsp");
-            rd.forward(request, response);
-            
+            String dni = (String) request.getParameter("id");
+            Usuario u = UsuarioDAO.buscaDNI(dni);
+            request.setAttribute("user", u);
+
+            if (UsuarioDAO.eliminaUsuario(u)) {
+                response.sendRedirect("listado");
+            } else {
+                request.setAttribute("noEliminado", true);
+                rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/listado.jsp");
+                rd.forward(request, response);
+            }
+
+
         } else { ///////////////////////////////////////////////////////////////
 
             response.sendRedirect("usuarios/listado");
-            
+
         }
     }
-    
+
     private boolean nuevoUsuario(HttpServletRequest request, HttpServletResponse response) {
-        
+
         String nombre = request.getParameter("nombre");
         String apellidos = request.getParameter("apellidos");
         String dni = request.getParameter("dni");
@@ -104,23 +114,23 @@ public class Usuarios extends HttpServlet {
         String tlf = request.getParameter("telefono");
         String password = request.getParameter("pass");
         String password2 = request.getParameter("pass2");
-        
+
         int grupo;
         if (request.getParameter("tipo").equals("Alumno")) {
             grupo = 0;
         } else {
             grupo = 1;
         }
-        
+
         Usuario u = new Usuario(nombre, apellidos, dni, direccion, tlf, password, grupo);
-        
+
         if (password.equals(password2) && !nombre.equals("") && !apellidos.equals("") && !dni.equals("")) {
             UsuarioDAO.insertaUsuario(u);
             return true;
         }
         return false;
     }
-    
+
     private boolean modificaUsuario(HttpServletRequest request, HttpServletResponse response) {
         String nombre = request.getParameter("nombre");
         String apellidos = request.getParameter("apellidos");
@@ -129,16 +139,16 @@ public class Usuarios extends HttpServlet {
         String tlf = request.getParameter("telefono");
         String password = request.getParameter("pass");
         String password2 = request.getParameter("pass2");
-        
+
         int grupo;
         if (request.getParameter("tipo").equals("Alumno")) {
             grupo = 0;
         } else {
             grupo = 1;
         }
-        
+
         Usuario u = new Usuario(nombre, apellidos, dni, direccion, tlf, password, grupo);
-        
+
         if (password.equals(password2) && !nombre.equals("") && !apellidos.equals("") && !dni.equals("")) {
             String oldDNI = (String) request.getParameter("id");
             UsuarioDAO.modificaUsuario(u, oldDNI);
