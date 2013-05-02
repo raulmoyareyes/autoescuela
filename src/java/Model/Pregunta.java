@@ -14,10 +14,11 @@ public class Pregunta {
     private String imagen;
     private int id;
 
-    Pregunta() {}
+    public Pregunta(){
+        id = 0;
+    }
 
-    Pregunta(String _enunciado, String _respuesta1, String _respuesta2, String _respuesta3,
-            int _respuestaCorrecta, int _tema) {
+    public Pregunta(String _enunciado, String _respuesta1, String _respuesta2, String _respuesta3, int _respuestaCorrecta, int _tema) {
         enunciado = _enunciado;
         respuesta1 = _respuesta1;
         respuesta2 = _respuesta2;
@@ -25,9 +26,18 @@ public class Pregunta {
         respuestaCorrecta = _respuestaCorrecta;
         tema = _tema;
     }
+    
+    public Pregunta(String _enunciado, String _respuesta1, String _respuesta2, String _respuesta3, int _respuestaCorrecta, int _tema, String _imagen) {
+        enunciado = _enunciado;
+        respuesta1 = _respuesta1;
+        respuesta2 = _respuesta2;
+        respuesta3 = _respuesta3;
+        respuestaCorrecta = _respuestaCorrecta;
+        tema = _tema;
+        imagen = _imagen;
+    }
 
-    Pregunta(String _enunciado, String _respuesta1, String _respuesta2, String _respuesta3,
-            int _respuestaCorrecta, int _tema, String _imagen, int _id) {
+    public Pregunta(String _enunciado, String _respuesta1, String _respuesta2, String _respuesta3, int _respuestaCorrecta, int _tema, String _imagen, int _id) {
         enunciado = _enunciado;
         respuesta1 = _respuesta1;
         respuesta2 = _respuesta2;

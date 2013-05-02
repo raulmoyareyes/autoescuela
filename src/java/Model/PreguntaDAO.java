@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.Context;
@@ -107,6 +109,28 @@ public class PreguntaDAO {
             }
         }
         return salida;
+    }
+    
+    public static List<Pregunta> buscaTodas() {
+        List<Pregunta> c = null;
+        if (openConexion() != null) {
+            try {
+                String qry = "SELECT * FROM prenguntas";
+                PreparedStatement stmn = cnx.prepareStatement(qry);
+                ResultSet rs = stmn.executeQuery();
+                c = new ArrayList<Pregunta>();
+                while (rs.next()) {
+                    Pregunta aux = recuperaPregunta(rs);
+                    c.add(aux);
+                }
+                rs.close();
+                stmn.close();
+                closeConexion();
+            } catch (Exception ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            }
+        }
+        return c;
     }
 
 }
