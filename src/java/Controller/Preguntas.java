@@ -5,8 +5,6 @@ package Controller;
 
 import Model.Pregunta;
 import Model.PreguntaDAO;
-import Model.Usuario;
-import Model.UsuarioDAO;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -15,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "preguntas", urlPatterns = {"/preguntas/*"})
 public class Preguntas extends HttpServlet {
@@ -36,6 +35,12 @@ public class Preguntas extends HttpServlet {
         String action = (request.getPathInfo() != null ? request.getPathInfo() : "");
         String srvUrl = request.getContextPath() + request.getServletPath();
 
+        HttpSession session = request.getSession();
+        if(session.getAttribute("currentUser")==null){
+            response.sendRedirect("login");
+            return;
+        }
+        
         RequestDispatcher rd;
         request.setAttribute("srvUrl", srvUrl);
         if (action.equals("/listado")) { ///////////////////////////////////////

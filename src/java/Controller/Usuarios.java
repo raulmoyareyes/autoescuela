@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "usuarios", urlPatterns = {"/usuarios/*"})
 public class Usuarios extends HttpServlet {
@@ -31,6 +32,12 @@ public class Usuarios extends HttpServlet {
             throws ServletException, IOException {
 
         response.setContentType("text/html;charset=UTF-8");
+        
+        HttpSession session = request.getSession();
+        if(session.getAttribute("currentUser")==null){
+            response.sendRedirect("login");
+            return;
+        }
 
         String action = (request.getPathInfo() != null ? request.getPathInfo() : "");
         String srvUrl = request.getContextPath() + request.getServletPath();

@@ -41,12 +41,11 @@
                         <ul class="nav pull-right">
                             <li class="divider-vertical"></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuario <b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">${sessionScope.currentUser.nombre} ${sessionScope.currentUser.apellidos} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li class="disabled"><a href="#">none</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="/autoescuela">Cerrar sesión</a></li>
-                                    <!--<li class="text-center"><button type="submit" class="btn btn-warning" name="close" >Cerrar sesión</button>-->
+                                    <li><a href="/autoescuela/login?op=close">Cerrar sesión</a></li>
                                 </ul>
                             </li>
                         </ul>

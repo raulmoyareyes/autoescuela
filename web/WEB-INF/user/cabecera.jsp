@@ -28,7 +28,7 @@
                     </a>
 
                     <!-- Be sure to leave the brand out there if you want it shown -->
-                    <a class="brand" href="#">Autoescuela</a>
+                    <a class="brand" href="/autoescuela/usuarios">Autoescuela</a>
 
                     <!-- Everything you want hidden at 940px or less, place within here -->
                     <div class="nav-collapse collapse">
@@ -49,11 +49,11 @@
                         <ul class="nav pull-right">
                             <li class="divider-vertical"></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">${user.nombre} <b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">${sessionScope.currentUser.nombre} ${sessionScope.currentUser.apellidos} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li class="disabled"><a href="#">none</a></li>
                                     <li class="divider"></li>
-                                   <li><a href="${srvUrl}">Cerrar sesión</a></li>
+                                    <li><a href="/autoescuela/login?op=close">Cerrar sesión</a></li>
                                 </ul>
                             </li>
                         </ul>

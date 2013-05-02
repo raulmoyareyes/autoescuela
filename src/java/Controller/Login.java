@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "login", urlPatterns = {"/login"})
 public class Login extends HttpServlet {
@@ -29,36 +30,58 @@ public class Login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         //String action = (request.getPathInfo()!=null?request.getPathInfo():"");
-        String srvUrl = request.getContextPath()+request.getServletPath();
+        String srvUrl = request.getContextPath() + request.getServletPath();
         RequestDispatcher rd;
-        
+
         request.setAttribute("srvUrl", srvUrl);
-        Usuario u;
-        if(request.getParameter("enviar")!=null){
-            String dni=request.getParameter("usuario");
-            String password=request.getParameter("pass");
-            u = UsuarioDAO.compruebaLogin(dni,password);
-            request.setAttribute("user",u);
-            
-            if(u!=null){
-                if(u.getGrupo()==0){
-                    response.sendRedirect("usuarios");
-                }else{
-                    response.sendRedirect("usuarios/listado");
+        HttpSession session = request.getSession();
+        String op = request.getParameter("op");
+
+        if (session.getAttribute("currentUser") == null) {
+
+            Usuario u;
+            if (request.getParameter("enviar") != null) {
+                String dni = request.getParameter("usuario");
+                String password = request.getParameter("pass");
+                u = UsuarioDAO.compruebaLogin(dni, password);
+                request.setAttribute("user", u);
+
+                if (u != null) {
+                    session.setAttribute("currentUser", u);
+                    if (u.getGrupo() == 0) {
+                        response.sendRedirect("estadisticas");
+                    } else {
+                        response.sendRedirect("usuarios/listado");
+                    }
+                } else {
+                    rd = request.getRequestDispatcher("/WEB-INF/login/index.jsp");
+                    rd.forward(request, response);
                 }
-            }else{
-                rd=request.getRequestDispatcher("/WEB-INF/login/index.jsp");
+            } else {
+                u = new Usuario();
+                request.setAttribute("user", u);
+                rd = request.getRequestDispatcher("/WEB-INF/login/index.jsp");
                 rd.forward(request, response);
             }
-        }else{
-            u = new Usuario();
-            request.setAttribute("user",u);
-            rd=request.getRequestDispatcher("/WEB-INF/login/index.jsp");
-            rd.forward(request, response);
-        }
 
+        } else if (session.getAttribute("currentUser") != null && op==null) {
+
+            Usuario u = (Usuario) session.getAttribute("currentUser");
+            int tipo = u.getGrupo();
+            if (tipo == 1) {
+                response.sendRedirect("usuarios/listado");
+            } else {
+                response.sendRedirect("estadisticas");
+            }
+
+        } else {
+            if (op.equals("close")) {
+                session.invalidate();
+                response.sendRedirect("login");
+            }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -74,6 +97,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         processRequest(request, response);
     }
 
@@ -89,6 +113,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         processRequest(request, response);
     }
 

@@ -4,12 +4,13 @@
 package Controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "estadisticas", urlPatterns = {"/estadisticas"})
 public class Estadisticas extends HttpServlet {
@@ -26,22 +27,23 @@ public class Estadisticas extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Estadisticas</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Estadisticas at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {            
-            out.close();
+
+        HttpSession session = request.getSession();
+        if (session.getAttribute("currentUser") == null) {
+            response.sendRedirect("login");
+            return;
         }
+
+        String action = (request.getPathInfo() != null ? request.getPathInfo() : "");
+        String srvUrl = request.getContextPath() + request.getServletPath();
+
+        RequestDispatcher rd;
+        request.setAttribute("srvUrl", srvUrl);
+
+        rd = request.getRequestDispatcher("/WEB-INF/user/estadisticas.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -57,6 +59,7 @@ public class Estadisticas extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         processRequest(request, response);
     }
 
@@ -72,6 +75,7 @@ public class Estadisticas extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         processRequest(request, response);
     }
 
