@@ -4,7 +4,11 @@
  */
 package Model;
 
+import static Model.UsuarioDAO.closeConexion;
+import static Model.UsuarioDAO.openConexion;
+import static Model.UsuarioDAO.recuperaUsuario;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -18,25 +22,25 @@ import javax.sql.DataSource;
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
 public class PreguntaDAO {
-
+    
     private static Connection cnx;
     private static String coonPoolName = "autoescuela";
-
+    
     public static Connection openConexion() {
         cnx = null;
         try {
-
+            
             Context context = new InitialContext();
             DataSource ds = (DataSource) context.lookup("jdbc/" + coonPoolName);
             cnx = ds.getConnection();
-
+            
         } catch (Exception ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
-
+        
         return cnx;
     }
-
+    
     public static void closeConexion() {
         try {
             cnx.close();
@@ -44,14 +48,65 @@ public class PreguntaDAO {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
-
+    
     public static Pregunta recuperaPregunta(ResultSet rs) {
         Pregunta p = null;
         try {
-            //p = new Pregunta(rs.getString("nombre"), rs.getString("apellidos"), rs.getString("dni"), rs.getString("direccion"), rs.getString("telefono"), rs.getString("password"), rs.getInt("grupo"));
+            //String _enunciado, String _respuesta1, String _respuesta2, String _respuesta3, int _respuestaCorrecta, int _tema, String _imagen, int _id
+            p = new Pregunta(rs.getString("enunciado"), rs.getString("respuesta1"), rs.getString("respuesta2"), rs.getString("respuesta3"), rs.getInt("respuestaCorrecta"), rs.getInt("tema"), rs.getString("imagen"), rs.getInt("id"));
         } catch (Exception ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
         return p;
     }
+    
+    public static Usuario buscaID(int id) {
+        Usuario c = null;
+        if (openConexion() != null) {
+            try {
+                String qry = "SELECT * FROM preguntas WHERE id=?";
+                PreparedStatement stmn = cnx.prepareStatement(qry);
+                stmn.setInt(1, id);
+                ResultSet rs = stmn.executeQuery();
+                rs.next();
+                c = recuperaUsuario(rs);
+                rs.close();
+                stmn.close();
+                closeConexion();
+            } catch (Exception ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            }
+        }
+        return c;
+    }
+    
+    public static boolean insertaPregunta(Pregunta p) {
+        boolean salida = false;
+        if (openConexion() != null) {
+            try {
+                String qry = "INSERT INTO preguntas VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement stmn = cnx.prepareStatement(qry);
+                stmn.setString(1, p.getEnunciado());
+                stmn.setString(2, p.getRespuesta1());
+                stmn.setString(3, p.getRespuesta2());
+                stmn.setString(4, p.getRespuesta2());
+                stmn.setString(5, p.getRespuesta3());
+                stmn.setInt(6, p.getRespuestaCorrecta());
+                stmn.setInt(7, p.getTema());
+                stmn.setString(8, p.getImagen());
+                //stmn.setInt(9, p.getId()); // autoincremento
+
+                if (stmn.executeUpdate() > 0) {
+                    salida = true;
+                }
+
+                stmn.close();
+                closeConexion();
+            } catch (Exception ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            }
+        }
+        return salida;
+    }
+
 }
