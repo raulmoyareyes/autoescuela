@@ -6,7 +6,7 @@ $(document).ready(function(){
         $("#error").fadeOut("slow");
     });
     
-    $("#elimina").click(function(){
+    $(".elimina").click(function(){
         var fila = $(this).parent().parent()[0];
         console.log(fila);
         var nombre = fila.cells[0].innerText;

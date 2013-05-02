@@ -11,6 +11,11 @@
             <div class="page-header">
                 <h1>Listado de usuarios</h1>
             </div>
+            <c:if test="${noEliminado == 'true'}">
+                <div class="alert alert-error">
+                    El usuario no ha sido eliminado.
+                </div>
+            </c:if>
             <table class="table table-striped table-condensed table-hover width100">
                 <thead>
                     <tr>
@@ -25,7 +30,7 @@
                 </thead>
                 <tbody>
                     <c:forEach var="u" items="${userList}" varStatus="estado">
-                        <tr>
+                        <tr if="fila${u.dni}">
                             <td>${u.nombre}</td>
                             <td>${u.apellidos}</td>
                             <td>${u.dni}</td>
@@ -33,7 +38,7 @@
                             <td>${u.telefono}</td>
                             <td>${u.grupo==0?'Usuario':'Administrador/a'}</td>
                             <td>
-                                <a href="#modalElimina" data-toggle="modal" id="elimina"><i class="icon-remove"></i></a>
+                                <a href="#modalElimina" data-toggle="modal" class="elimina"><i class="icon-remove"></i></a>
                                 <a href="/autoescuela/usuarios/modifica?id=${u.dni}"><i class="icon-pencil"></i></a>
                             </td>
                         </tr>
