@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -36,6 +37,7 @@
                         <ul class="nav">
                             <li class="${(param.op == 'usuarios')?'active':''}"><a href="/autoescuela/usuarios">Usuarios</a></li>
                             <li class="${(param.op == 'preguntas')?'active':''}"><a href="/autoescuela/preguntas">Preguntas</a></li>
+                            <li ><a href="/autoescuela/estadisticas">Zona alumno</a></li>
                         </ul>
 
                         <ul class="nav pull-right">
@@ -43,7 +45,7 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">${sessionScope.currentUser.nombre} ${sessionScope.currentUser.apellidos} <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li class="disabled"><a href="#">none</a></li>
+                                    <li class="disabled">> Última conexión: <a href="#"><%=new Date(session.getCreationTime())%></a></li>
                                     <li class="divider"></li>
                                     <li><a href="/autoescuela/login?op=close">Cerrar sesión</a></li>
                                 </ul>
