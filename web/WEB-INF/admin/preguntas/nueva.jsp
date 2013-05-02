@@ -36,9 +36,9 @@
                     </div>
                     <label class="control-label">Respuesta correcta</label>
                     <div class="controls">
-                        <label for="radioRespuesta1" class="radio">Respuesta 1<input type="radio" id="radioRespuesta1" name="radioRespuesta"/></label>
-                        <label for="radioRespuesta2" class="radio">Respuesta 2<input type="radio" id="radioRespuesta2" name="radioRespuesta"/></label>
-                        <label for="radioRespuesta3" class="radio">Respuesta 3<input type="radio" id="radioRespuesta3" name="radioRespuesta"/></label>
+                        <label for="radioRespuesta1" class="radio">Respuesta 1<input type="radio" name="radioRespuesta" value="1"/></label>
+                        <label for="radioRespuesta2" class="radio">Respuesta 2<input type="radio" name="radioRespuesta" value="2"/></label>
+                        <label for="radioRespuesta3" class="radio">Respuesta 3<input type="radio" name="radioRespuesta" value="3"/></label>
                     </div>
                     <label class="control-label" for="inputTema">Tema</label>
                     <div class="controls">

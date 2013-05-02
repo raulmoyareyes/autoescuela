@@ -86,8 +86,19 @@ public class PreguntaDAO {
         boolean salida = false;
         if (openConexion() != null) {
             try {
-                String qry = "INSERT INTO preguntas VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+                
+                // da un fallo cuando no hay preguntas /////////////////////////
+                String qry = "SELECT * FROM preguntas ORDER BY id DESC";
                 PreparedStatement stmn = cnx.prepareStatement(qry);
+                ResultSet rs = stmn.executeQuery();
+                rs.next();
+                int lastId = rs.getInt("id");
+                rs.close();
+                stmn.close();
+                ////////////////////////////////////////////////////////////////
+                
+                qry = "INSERT INTO preguntas VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                stmn = cnx.prepareStatement(qry);
                 stmn.setString(1, p.getEnunciado());
                 stmn.setString(2, p.getRespuesta1());
                 stmn.setString(3, p.getRespuesta2());
@@ -95,8 +106,8 @@ public class PreguntaDAO {
                 stmn.setString(5, p.getRespuesta3());
                 stmn.setInt(6, p.getRespuestaCorrecta());
                 stmn.setInt(7, p.getTema());
-                stmn.setString(8, p.getImagen());
-                //stmn.setInt(9, p.getId()); // autoincremento
+                stmn.setString(8, "hola");
+                stmn.setInt(9, lastId+1); // autoincremento
 
                 if (stmn.executeUpdate() > 0) {
                     salida = true;
