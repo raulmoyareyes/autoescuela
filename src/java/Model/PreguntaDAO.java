@@ -87,28 +87,32 @@ public class PreguntaDAO {
         if (openConexion() != null) {
             try {
                 
-                // da un fallo cuando no hay preguntas /////////////////////////
-                String qry = "SELECT * FROM preguntas ORDER BY id DESC";
+                /* Orden para crear la tabla:
+                 
+                 CREATE TABLE "PREGUNTAS"(
+                    "ENUNCIADO" VARCHAR(500) NOT NULL,
+                    "RESPUESTA1" VARCHAR(500) NOT NULL,
+                    "RESPUESTA2" VARCHAR(500) NOT NULL,
+                    "RESPUESTA3" VARCHAR(500) NOT NULL,
+                    "RESPUESTACORRECTA" INTEGER NOT NULL,  
+                    "TEMA" INTEGER NOT NULL,  
+                    "IMAGEN" VARCHAR(40),
+                    "ID" INT not null primary key
+                            GENERATED ALWAYS AS IDENTITY
+                            (START WITH 1, INCREMENT BY 1)
+                  );
+                  
+                 */                
+                String qry = "INSERT INTO preguntas(enunciado, respuesta1, respuesta2, respuesta3, respuestacorrecta, tema) VALUES(?, ?, ?, ?, ?, ?)";
                 PreparedStatement stmn = cnx.prepareStatement(qry);
-                ResultSet rs = stmn.executeQuery();
-                rs.next();
-                int lastId = rs.getInt("id");
-                rs.close();
-                stmn.close();
-                ////////////////////////////////////////////////////////////////
-                
-                qry = "INSERT INTO preguntas VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                stmn = cnx.prepareStatement(qry);
                 stmn.setString(1, p.getEnunciado());
                 stmn.setString(2, p.getRespuesta1());
                 stmn.setString(3, p.getRespuesta2());
-                stmn.setString(4, p.getRespuesta2());
-                stmn.setString(5, p.getRespuesta3());
-                stmn.setInt(6, p.getRespuestaCorrecta());
-                stmn.setInt(7, p.getTema());
-                stmn.setString(8, "hola");
-                stmn.setInt(9, lastId+1); // autoincremento
-
+                stmn.setString(4, p.getRespuesta3());
+                stmn.setInt(5, p.getRespuestaCorrecta());
+                stmn.setInt(6, p.getTema());
+                //stmn.setString(7, "hola");
+                //stmn.setInt(8, lastId+1); // autoincremento
                 if (stmn.executeUpdate() > 0) {
                     salida = true;
                 }
