@@ -186,9 +186,9 @@ public class UsuarioDAO {
         boolean salida = false;
         if (openConexion() != null) {
             try {
-                String qry = "DELETE usuarios WHERE dni=?";
+                String qry = "DELETE FROM usuarios WHERE dni=?";
                 PreparedStatement stmn = cnx.prepareStatement(qry);
-                stmn.setString(3, u.getDni());
+                stmn.setString(1, u.getDni());
 
                 if (stmn.executeUpdate() > 0) {
                     salida = true;
