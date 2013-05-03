@@ -23,11 +23,29 @@ body{
     width: 100%;
 }
 
+.width95{
+    width: 95%;
+}
+
+.width60{
+    width: 60%;
+}
+
+.inBl{
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 5%;
+}
+
 .centro{
     background: #fff;
     border-radius: 3px;
     padding: 2%;
     margin-bottom: 20px;
+}
+
+.frigth{
+    float: right;
 }
 
 @media (min-width: 870px) {
@@ -37,6 +55,10 @@ body{
 
     .span9{
         width: 71%;
+    }
+
+    .width95{
+        width: 95%;
     }
 
 }
