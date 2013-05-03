@@ -5,6 +5,10 @@ package Controller;
 
 import Model.Pregunta;
 import Model.PreguntaDAO;
+import com.oreilly.servlet.multipart.FilePart;
+import com.oreilly.servlet.multipart.MultipartParser;
+import com.oreilly.servlet.multipart.Part;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -36,22 +40,22 @@ public class Preguntas extends HttpServlet {
         String srvUrl = request.getContextPath() + request.getServletPath();
 
         HttpSession session = request.getSession();
-        if(session.getAttribute("currentUser")==null){
+        if (session.getAttribute("currentUser") == null) {
             response.sendRedirect("login");
             return;
         }
-        
+
         RequestDispatcher rd;
         request.setAttribute("srvUrl", srvUrl);
         if (action.equals("/listado")) { ///////////////////////////////////////
-            
+
             List<Pregunta> questList = PreguntaDAO.buscaTodas();
             request.setAttribute("questList", questList);
             rd = request.getRequestDispatcher("/WEB-INF/admin/preguntas/listado.jsp");
             rd.forward(request, response);
-            
+
         } else if (action.equals("/nueva")) { //////////////////////////////////
-            
+
             if (request.getParameter("crear") != null) {
                 if (nuevaPregunta(request, response)) {
                     response.sendRedirect("listado");
@@ -64,7 +68,7 @@ public class Preguntas extends HttpServlet {
                 rd = request.getRequestDispatcher("/WEB-INF/admin/preguntas/nueva.jsp");
                 rd.forward(request, response);
             }
-            
+
         } else {
             response.sendRedirect("preguntas/listado");
         }
@@ -84,11 +88,31 @@ public class Preguntas extends HttpServlet {
 
         Pregunta p = new Pregunta(enunciado, respuesta1, respuesta2, respuesta3, respuestaCorrecta, tema);
 
-        if(PreguntaDAO.insertaPregunta(p)){
+        if (PreguntaDAO.insertaPregunta(p)) {
             return true;
         }
-            
+
         return false;
+    }
+
+    private void subirImagen(HttpServletRequest request) {
+
+        try {
+            
+            String imagen = request.getParameter("archivo");
+            
+            File dir = new File("/img");
+            MultipartParser mp = new MultipartParser(request, 1024 * 10);
+            Part part;
+            while((part=mp.readNextPart()) != null){
+                if(part.isFile()){
+                    FilePart filepart = (FilePart) part;
+                    filepart.writeTo(dir);
+                }
+            }
+        
+        } catch(IOException e) {}
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

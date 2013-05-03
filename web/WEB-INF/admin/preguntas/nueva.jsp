@@ -56,6 +56,11 @@
                 </div>
 
             </form>
+            
+            <!--<form enctype="multipart/form-data" method="post">
+                <input type="file" name="archivo"/>
+                <button>Enviar</button>                   
+            </form>-->
 
         </section>
     </div>
