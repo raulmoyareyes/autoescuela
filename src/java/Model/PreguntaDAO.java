@@ -86,23 +86,7 @@ public class PreguntaDAO {
         boolean salida = false;
         if (openConexion() != null) {
             try {
-                
-                /* Orden para crear la tabla:
-                 
-                 CREATE TABLE "PREGUNTAS"(
-                    "ENUNCIADO" VARCHAR(500) NOT NULL,
-                    "RESPUESTA1" VARCHAR(500) NOT NULL,
-                    "RESPUESTA2" VARCHAR(500) NOT NULL,
-                    "RESPUESTA3" VARCHAR(500) NOT NULL,
-                    "RESPUESTACORRECTA" INTEGER NOT NULL,  
-                    "TEMA" INTEGER NOT NULL,  
-                    "IMAGEN" VARCHAR(40),
-                    "ID" INT not null primary key
-                            GENERATED ALWAYS AS IDENTITY
-                            (START WITH 1, INCREMENT BY 1)
-                  );
-                  
-                 */                
+                              
                 String qry = "INSERT INTO preguntas(enunciado, respuesta1, respuesta2, respuesta3, respuestacorrecta, tema) VALUES(?, ?, ?, ?, ?, ?)";
                 PreparedStatement stmn = cnx.prepareStatement(qry);
                 stmn.setString(1, p.getEnunciado());
@@ -112,7 +96,7 @@ public class PreguntaDAO {
                 stmn.setInt(5, p.getRespuestaCorrecta());
                 stmn.setInt(6, p.getTema());
                 //stmn.setString(7, "hola");
-                //stmn.setInt(8, lastId+1); // autoincremento
+
                 if (stmn.executeUpdate() > 0) {
                     salida = true;
                 }
@@ -130,7 +114,7 @@ public class PreguntaDAO {
         List<Pregunta> c = null;
         if (openConexion() != null) {
             try {
-                String qry = "SELECT * FROM prenguntas";
+                String qry = "SELECT * FROM preguntas";
                 PreparedStatement stmn = cnx.prepareStatement(qry);
                 ResultSet rs = stmn.executeQuery();
                 c = new ArrayList<Pregunta>();
@@ -146,6 +130,58 @@ public class PreguntaDAO {
             }
         }
         return c;
+    }
+    
+    public static boolean eliminaPregunta(Pregunta p){
+        
+        boolean salida = false;
+        if (openConexion() != null) {
+            try {
+                String qry = "DELETE FROM preguntas WHERE dni=?";
+                PreparedStatement stmn = cnx.prepareStatement(qry);
+                stmn.setInt(1, p.getId());
+
+                if (stmn.executeUpdate() > 0) {
+                    salida = true;
+                }
+
+                stmn.close();
+                closeConexion();
+            } catch (Exception ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                return salida;
+            }
+        }
+        return salida;
+    }
+    
+    public static boolean modificaPregunta(Pregunta p, String id) {
+        boolean salida = false;
+        if (openConexion() != null) {
+            try {
+//                String qry = "UPDATE usuarios SET nombre=?, apellidos=?, dni=?, direccion=?, telefono=?, password=?, grupo=? WHERE dni=?";
+//                PreparedStatement stmn = cnx.prepareStatement(qry);
+//                stmn.setString(1, u.getNombre());
+//                stmn.setString(2, u.getApellidos());
+//                stmn.setString(3, u.getDni());
+//                stmn.setString(4, u.getDireccion());
+//                stmn.setString(5, u.getTelefono());
+//                stmn.setString(6, u.getPassword());
+//                stmn.setInt(7, u.getGrupo());
+//                stmn.setString(8, DNI);
+
+//                if (stmn.executeUpdate() > 0) {
+//                    salida = true;
+//                }
+//
+//                stmn.close();
+//                closeConexion();
+            } catch (Exception ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                return salida;
+            }
+        }
+        return salida;
     }
 
 }
