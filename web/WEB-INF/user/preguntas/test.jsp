@@ -7,7 +7,7 @@
     <div class="span12 centro">
         <section>
             <div class="page-header">
-                <h1>Test -  Tema ${p.tema}</h1>
+                <h1>Test -  Tema ${p_Variable.tema}¿?</h1> 
             </div>
             <ul class="thumbnails">
                 <c:forEach var="p" items="${questList}" varStatus="estado">

@@ -29,7 +29,7 @@
                     </a>
 
                     <!-- Be sure to leave the brand out there if you want it shown -->
-                    <a class="brand" href="/autoescuela/estadisticas">Autoescuela</a>
+                    <a class="brand" href="/autoescuela/estadisticas/mostrar">Autoescuela</a>
 
                     <!-- Everything you want hidden at 940px or less, place within here -->
                     <div class="nav-collapse collapse">

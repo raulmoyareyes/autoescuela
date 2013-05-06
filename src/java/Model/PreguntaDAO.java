@@ -11,7 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.Context;
@@ -23,25 +25,25 @@ import javax.sql.DataSource;
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
 public class PreguntaDAO {
-    
+
     private static Connection cnx;
     private static String coonPoolName = "autoescuela";
-    
+
     public static Connection openConexion() {
         cnx = null;
         try {
-            
+
             Context context = new InitialContext();
             DataSource ds = (DataSource) context.lookup("jdbc/" + coonPoolName);
             cnx = ds.getConnection();
-            
+
         } catch (Exception ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
-        
+
         return cnx;
     }
-    
+
     public static void closeConexion() {
         try {
             cnx.close();
@@ -49,7 +51,7 @@ public class PreguntaDAO {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
-    
+
     public static Pregunta recuperaPregunta(ResultSet rs) {
         Pregunta p = null;
         try {
@@ -60,7 +62,7 @@ public class PreguntaDAO {
         }
         return p;
     }
-    
+
     public static Pregunta buscaID(int id) {
         Pregunta c = null;
         if (openConexion() != null) {
@@ -80,12 +82,46 @@ public class PreguntaDAO {
         }
         return c;
     }
-    
+
+    public static List<Pregunta> buscaTema(int tema, int numPreguntas) {
+        /*
+         * Habría que hacer una consulta aleatoria que sólo devuelva n líneas
+         */
+        List<Pregunta> c = null;
+        if (openConexion() != null) {
+            try {
+                String qry = "SELECT * FROM preguntas WHERE tema=?";
+
+                PreparedStatement stmn = cnx.prepareStatement(qry);
+                stmn.setInt(1, tema);
+                ResultSet rs = stmn.executeQuery();
+                c = new ArrayList<Pregunta>();
+                while (rs.next()) {
+                    Pregunta aux = recuperaPregunta(rs);
+                    c.add(aux);
+                }
+                rs.close();
+                stmn.close();
+                closeConexion();
+            } catch (Exception ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            }
+        }
+        //Tenemos en c todas las preguntas del tema "tema"
+        java.util.Date date = new java.util.Date();
+        Collections.shuffle(c, new Random(date.getTime()));
+        if (c == null || c.size() < numPreguntas) {
+            return c;
+        } else {
+            return c.subList(0, numPreguntas);
+        }
+    }
+
     public static boolean insertaPregunta(Pregunta p) {
         boolean salida = false;
         if (openConexion() != null) {
             try {
-                              
+
                 String qry = "INSERT INTO preguntas(enunciado, respuesta1, respuesta2, respuesta3, respuestacorrecta, tema, imagen) VALUES(?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement stmn = cnx.prepareStatement(qry);
                 stmn.setString(1, p.getEnunciado());
@@ -108,7 +144,7 @@ public class PreguntaDAO {
         }
         return salida;
     }
-    
+
     public static List<Pregunta> buscaTodas() {
         List<Pregunta> c = null;
         if (openConexion() != null) {
@@ -130,9 +166,9 @@ public class PreguntaDAO {
         }
         return c;
     }
-    
-    public static boolean eliminaPregunta(Pregunta p){
-        
+
+    public static boolean eliminaPregunta(Pregunta p) {
+
         boolean salida = false;
         if (openConexion() != null) {
             try {
@@ -153,7 +189,7 @@ public class PreguntaDAO {
         }
         return salida;
     }
-    
+
     public static boolean modificaPregunta(Pregunta p) {
         boolean salida = false;
         if (openConexion() != null) {
@@ -182,5 +218,4 @@ public class PreguntaDAO {
         }
         return salida;
     }
-
 }

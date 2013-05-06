@@ -105,6 +105,11 @@ public class Preguntas extends HttpServlet {
 
         } else if (action.equals("/test")) { ////////////////////////////////
 
+            int tema = Integer.parseInt(request.getParameter("tema"));
+            List<Pregunta> questList;
+            questList = PreguntaDAO.buscaTema(tema, 2);
+            
+            request.setAttribute("questList", questList);
             rd = request.getRequestDispatcher("/WEB-INF/user/preguntas/test.jsp");
             rd.forward(request, response);
 

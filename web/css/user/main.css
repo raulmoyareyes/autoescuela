@@ -14,3 +14,55 @@ body{
 .nav-left-bgcolor li a{
     color: #555;
 }
+
+.margin-bottom-10 .control-label, .margin-bottom-10 .controls{
+    margin-bottom: 10px;
+}
+
+.width100{
+    width: 100%;
+}
+
+.width95{
+    width: 95%;
+}
+
+.width60{
+    width: 60%;
+}
+
+.inBl{
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 5%;
+}
+
+.centro{
+    background: #fff;
+    border-radius: 3px;
+    padding: 2%;
+    margin-bottom: 20px;
+}
+
+.frigth{
+    float: right;
+}
+
+.padding5{
+    padding-left: 5%;
+}
+
+@media (min-width: 870px) {
+    .span3{
+        width: 20%;
+    }
+
+    .span9{
+        width: 71%;
+    }
+
+    .width95{
+        width: 95%;
+    }
+
+}
