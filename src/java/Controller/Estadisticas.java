@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "estadisticas", urlPatterns = {"/estadisticas"})
+@WebServlet(name = "estadisticas", urlPatterns = {"/estadisticas/*"})
 public class Estadisticas extends HttpServlet {
 
     /**
@@ -42,7 +42,7 @@ public class Estadisticas extends HttpServlet {
         RequestDispatcher rd;
         request.setAttribute("srvUrl", srvUrl);
 
-        rd = request.getRequestDispatcher("/WEB-INF/user/estadisticas.jsp");
+        rd = request.getRequestDispatcher("/WEB-INF/user/estadisticas/mostrar.jsp");
         rd.forward(request, response);
     }
 

@@ -5,8 +5,8 @@ package Controller;
 
 import Model.Pregunta;
 import Model.PreguntaDAO;
-import Model.Usuario;
-import Model.UsuarioDAO;
+//import Model.Usuario;
+//import Model.UsuarioDAO;
 //import com.oreilly.servlet.multipart.FilePart;
 //import com.oreilly.servlet.multipart.MultipartParser;
 //import com.oreilly.servlet.multipart.Part;
@@ -102,6 +102,11 @@ public class Preguntas extends HttpServlet {
                 rd = request.getRequestDispatcher("/WEB-INF/admin/preguntas/listado.jsp");
                 rd.forward(request, response);
             }
+
+        } else if (action.equals("/test")) { ////////////////////////////////
+
+            rd = request.getRequestDispatcher("/WEB-INF/user/preguntas/test.jsp");
+            rd.forward(request, response);
 
         } else {
             response.sendRedirect("preguntas/listado");

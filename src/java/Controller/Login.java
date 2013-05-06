@@ -51,7 +51,7 @@ public class Login extends HttpServlet {
                 if (u != null) {
                     session.setAttribute("currentUser", u);
                     if (u.getGrupo() == 0) {
-                        response.sendRedirect("estadisticas");
+                        response.sendRedirect("estadisticas/mostrar");
                     } else {
                         response.sendRedirect("usuarios/listado");
                     }
@@ -73,7 +73,7 @@ public class Login extends HttpServlet {
             if (tipo == 1) {
                 response.sendRedirect("usuarios/listado");
             } else {
-                response.sendRedirect("estadisticas");
+                response.sendRedirect("estadisticas/mostrar");
             }
 
         } else {

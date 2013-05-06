@@ -37,7 +37,6 @@
                         <ul class="nav">
                             <li class="${(param.op == 'usuarios')?'active':''}"><a href="/autoescuela/usuarios">Usuarios</a></li>
                             <li class="${(param.op == 'preguntas')?'active':''}"><a href="/autoescuela/preguntas">Preguntas</a></li>
-                            <li ><a href="/autoescuela/estadisticas">Zona alumno</a></li>
                         </ul>
 
                         <ul class="nav pull-right">
