@@ -19,8 +19,7 @@ $(document).ready(function(){
     });
     
     $(".eliminap").click(function(){
-        var id = $(this).parent().find("h3 span");
-        console.log(id);
+        var id = $(this).parent().find("span").html();
         
         $("#idPregunta").html(id);
         $("#confirmaElimina").attr("href", "/autoescuela/preguntas/elimina?id="+id);

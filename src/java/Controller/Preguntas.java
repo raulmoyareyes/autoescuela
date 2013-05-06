@@ -55,7 +55,7 @@ public class Preguntas extends HttpServlet {
             request.setAttribute("questList", questList);
             rd = request.getRequestDispatcher("/WEB-INF/admin/preguntas/listado.jsp");
             rd.forward(request, response);
-            
+
         } else if (action.equals("/modifica")) { ///////////////////////////////
 
             int id = Integer.parseInt(request.getParameter("id"));
@@ -89,6 +89,20 @@ public class Preguntas extends HttpServlet {
                 rd.forward(request, response);
             }
 
+        } else if (action.equals("/elimina")) { ////////////////////////////////
+
+            int id = Integer.parseInt(request.getParameter("id"));
+            Pregunta p = PreguntaDAO.buscaID(id);
+            request.setAttribute("quets", p);
+
+            if (PreguntaDAO.eliminaPregunta(p)) {
+                response.sendRedirect("listado");
+            } else {
+                request.setAttribute("noEliminada", true);
+                rd = request.getRequestDispatcher("/WEB-INF/admin/preguntas/listado.jsp");
+                rd.forward(request, response);
+            }
+
         } else {
             response.sendRedirect("preguntas/listado");
         }
@@ -103,10 +117,9 @@ public class Preguntas extends HttpServlet {
         String respuesta3 = request.getParameter("respuesta3");
         int respuestaCorrecta = Integer.parseInt(request.getParameter("radioRespuesta"));
         int tema = Integer.parseInt(request.getParameter("tema"));
-        //String imagen = request.getParameter("nombre");
-        //int id;
+        String imagen = "no_image.png";
 
-        Pregunta p = new Pregunta(enunciado, respuesta1, respuesta2, respuesta3, respuestaCorrecta, tema);
+        Pregunta p = new Pregunta(enunciado, respuesta1, respuesta2, respuesta3, respuestaCorrecta, tema, imagen);
 
         if (PreguntaDAO.insertaPregunta(p)) {
             return true;
@@ -114,8 +127,8 @@ public class Preguntas extends HttpServlet {
 
         return false;
     }
-    
-    private boolean modificaPregunta(HttpServletRequest request, HttpServletResponse response){
+
+    private boolean modificaPregunta(HttpServletRequest request, HttpServletResponse response) {
         String enunciado = request.getParameter("enunciado");
         String respuesta1 = request.getParameter("respuesta1");
         String respuesta2 = request.getParameter("respuesta2");
@@ -134,7 +147,6 @@ public class Preguntas extends HttpServlet {
     }
 
     private void subirImagen(HttpServletRequest request) {
-
 //        try {
 //            
 //            String imagen = request.getParameter("archivo");
@@ -150,7 +162,6 @@ public class Preguntas extends HttpServlet {
 //            }
 //        
 //        } catch(IOException e) {}
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

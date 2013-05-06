@@ -86,7 +86,7 @@ public class PreguntaDAO {
         if (openConexion() != null) {
             try {
                               
-                String qry = "INSERT INTO preguntas(enunciado, respuesta1, respuesta2, respuesta3, respuestacorrecta, tema) VALUES(?, ?, ?, ?, ?, ?)";
+                String qry = "INSERT INTO preguntas(enunciado, respuesta1, respuesta2, respuesta3, respuestacorrecta, tema, imagen) VALUES(?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement stmn = cnx.prepareStatement(qry);
                 stmn.setString(1, p.getEnunciado());
                 stmn.setString(2, p.getRespuesta1());
@@ -94,7 +94,7 @@ public class PreguntaDAO {
                 stmn.setString(4, p.getRespuesta3());
                 stmn.setInt(5, p.getRespuestaCorrecta());
                 stmn.setInt(6, p.getTema());
-                //stmn.setString(7, "hola");
+                stmn.setString(7, p.getImagen());
 
                 if (stmn.executeUpdate() > 0) {
                     salida = true;
@@ -136,7 +136,7 @@ public class PreguntaDAO {
         boolean salida = false;
         if (openConexion() != null) {
             try {
-                String qry = "DELETE FROM preguntas WHERE dni=?";
+                String qry = "DELETE FROM preguntas WHERE id=?";
                 PreparedStatement stmn = cnx.prepareStatement(qry);
                 stmn.setInt(1, p.getId());
 
