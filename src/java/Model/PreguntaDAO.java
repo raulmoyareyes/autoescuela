@@ -6,7 +6,6 @@ package Model;
 
 import static Model.UsuarioDAO.closeConexion;
 import static Model.UsuarioDAO.openConexion;
-import static Model.UsuarioDAO.recuperaUsuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -62,8 +61,8 @@ public class PreguntaDAO {
         return p;
     }
     
-    public static Usuario buscaID(int id) {
-        Usuario c = null;
+    public static Pregunta buscaID(int id) {
+        Pregunta c = null;
         if (openConexion() != null) {
             try {
                 String qry = "SELECT * FROM preguntas WHERE id=?";
@@ -71,7 +70,7 @@ public class PreguntaDAO {
                 stmn.setInt(1, id);
                 ResultSet rs = stmn.executeQuery();
                 rs.next();
-                c = recuperaUsuario(rs);
+                c = recuperaPregunta(rs);
                 rs.close();
                 stmn.close();
                 closeConexion();
@@ -155,27 +154,27 @@ public class PreguntaDAO {
         return salida;
     }
     
-    public static boolean modificaPregunta(Pregunta p, String id) {
+    public static boolean modificaPregunta(Pregunta p) {
         boolean salida = false;
         if (openConexion() != null) {
             try {
-//                String qry = "UPDATE usuarios SET nombre=?, apellidos=?, dni=?, direccion=?, telefono=?, password=?, grupo=? WHERE dni=?";
-//                PreparedStatement stmn = cnx.prepareStatement(qry);
-//                stmn.setString(1, u.getNombre());
-//                stmn.setString(2, u.getApellidos());
-//                stmn.setString(3, u.getDni());
-//                stmn.setString(4, u.getDireccion());
-//                stmn.setString(5, u.getTelefono());
-//                stmn.setString(6, u.getPassword());
-//                stmn.setInt(7, u.getGrupo());
-//                stmn.setString(8, DNI);
+                String qry = "UPDATE preguntas SET enunciado=?, respuesta1=?, respuesta2=?, respuesta3=?, respuestaCorrecta=?, tema=?, imagen=? WHERE id=?";
+                PreparedStatement stmn = cnx.prepareStatement(qry);
+                stmn.setString(1, p.getEnunciado());
+                stmn.setString(2, p.getRespuesta1());
+                stmn.setString(3, p.getRespuesta2());
+                stmn.setString(4, p.getRespuesta3());
+                stmn.setInt(5, p.getRespuestaCorrecta());
+                stmn.setInt(6, p.getTema());
+                stmn.setString(7, p.getImagen());
+                stmn.setInt(8, p.getId());
 
-//                if (stmn.executeUpdate() > 0) {
-//                    salida = true;
-//                }
-//
-//                stmn.close();
-//                closeConexion();
+                if (stmn.executeUpdate() > 0) {
+                    salida = true;
+                }
+
+                stmn.close();
+                closeConexion();
             } catch (Exception ex) {
                 Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
                 return salida;

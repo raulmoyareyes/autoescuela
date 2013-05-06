@@ -48,6 +48,10 @@ body{
     float: right;
 }
 
+.padding5{
+    padding-left: 5%;
+}
+
 @media (min-width: 870px) {
     .span3{
         width: 20%;

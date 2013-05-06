@@ -17,4 +17,13 @@ $(document).ready(function(){
         $("#confirmaElimina").attr("href", "/autoescuela/usuarios/elimina?id="+dni);
         $("#modalElimina").show();
     });
+    
+    $(".eliminap").click(function(){
+        var id = $(this).parent().find("h3 span");
+        console.log(id);
+        
+        $("#idPregunta").html(id);
+        $("#confirmaElimina").attr("href", "/autoescuela/preguntas/elimina?id="+id);
+        $("#modalElimina").show();
+    });
 });

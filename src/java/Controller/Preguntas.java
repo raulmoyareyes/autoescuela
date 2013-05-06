@@ -5,10 +5,12 @@ package Controller;
 
 import Model.Pregunta;
 import Model.PreguntaDAO;
-import com.oreilly.servlet.multipart.FilePart;
-import com.oreilly.servlet.multipart.MultipartParser;
-import com.oreilly.servlet.multipart.Part;
-import java.io.File;
+import Model.Usuario;
+import Model.UsuarioDAO;
+//import com.oreilly.servlet.multipart.FilePart;
+//import com.oreilly.servlet.multipart.MultipartParser;
+//import com.oreilly.servlet.multipart.Part;
+//import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -53,6 +55,24 @@ public class Preguntas extends HttpServlet {
             request.setAttribute("questList", questList);
             rd = request.getRequestDispatcher("/WEB-INF/admin/preguntas/listado.jsp");
             rd.forward(request, response);
+            
+        } else if (action.equals("/modifica")) { ///////////////////////////////
+
+            int id = Integer.parseInt(request.getParameter("id"));
+            Pregunta p = PreguntaDAO.buscaID(id);
+            request.setAttribute("quest", p);
+            if (request.getParameter("guardar") != null) {
+                if (modificaPregunta(request, response)) {
+                    response.sendRedirect("listado");
+                } else {
+                    request.setAttribute("noModificada", true);
+                    rd = request.getRequestDispatcher("/WEB-INF/admin/preguntas/modifica.jsp");
+                    rd.forward(request, response);
+                }
+            } else {
+                rd = request.getRequestDispatcher("/WEB-INF/admin/preguntas/modifica.jsp");
+                rd.forward(request, response);
+            }
 
         } else if (action.equals("/nueva")) { //////////////////////////////////
 
@@ -94,24 +114,42 @@ public class Preguntas extends HttpServlet {
 
         return false;
     }
+    
+    private boolean modificaPregunta(HttpServletRequest request, HttpServletResponse response){
+        String enunciado = request.getParameter("enunciado");
+        String respuesta1 = request.getParameter("respuesta1");
+        String respuesta2 = request.getParameter("respuesta2");
+        String respuesta3 = request.getParameter("respuesta3");
+        int respuestaCorrecta = Integer.parseInt(request.getParameter("radioRespuesta"));
+        int tema = Integer.parseInt(request.getParameter("tema"));
+        String imagen = "no_image.png";
+
+        int id = Integer.parseInt(request.getParameter("id"));
+        Pregunta p = new Pregunta(enunciado, respuesta1, respuesta2, respuesta3, respuestaCorrecta, tema, imagen, id);
+        if (!enunciado.equals("") && !respuesta1.equals("") && !respuesta2.equals("") && !respuesta3.equals("")) {
+            PreguntaDAO.modificaPregunta(p);
+            return true;
+        }
+        return false;
+    }
 
     private void subirImagen(HttpServletRequest request) {
 
-        try {
-            
-            String imagen = request.getParameter("archivo");
-            
-            File dir = new File("/img");
-            MultipartParser mp = new MultipartParser(request, 1024 * 10);
-            Part part;
-            while((part=mp.readNextPart()) != null){
-                if(part.isFile()){
-                    FilePart filepart = (FilePart) part;
-                    filepart.writeTo(dir);
-                }
-            }
-        
-        } catch(IOException e) {}
+//        try {
+//            
+//            String imagen = request.getParameter("archivo");
+//            
+//            File dir = new File("/img");
+//            MultipartParser mp = new MultipartParser(request, 1024 * 10);
+//            Part part;
+//            while((part=mp.readNextPart()) != null){
+//                if(part.isFile()){
+//                    FilePart filepart = (FilePart) part;
+//                    filepart.writeTo(dir);
+//                }
+//            }
+//        
+//        } catch(IOException e) {}
 
     }
 
