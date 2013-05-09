@@ -40,10 +40,14 @@ public class Preguntas extends HttpServlet {
 
         String action = (request.getPathInfo() != null ? request.getPathInfo() : "");
         String srvUrl = request.getContextPath() + request.getServletPath();
+        
+        List<String> temas = PreguntaDAO.numTemas();
+        request.setAttribute("unitList", temas);
+        
 
         HttpSession session = request.getSession();
         if (session.getAttribute("currentUser") == null) {
-            response.sendRedirect("login");
+            response.sendRedirect("/autoescuela/login");
             return;
         }
 
@@ -104,10 +108,14 @@ public class Preguntas extends HttpServlet {
             }
 
         } else if (action.equals("/test")) { ////////////////////////////////
-
-            int tema = Integer.parseInt(request.getParameter("tema"));
+            
             List<Pregunta> questList;
-            questList = PreguntaDAO.buscaTema(tema, 2);
+            if(request.getParameter("tema").equals("global")){
+                questList = PreguntaDAO.buscaTemaGlobal(30);
+            }else{
+                int tema = Integer.parseInt(request.getParameter("tema"));
+                questList = PreguntaDAO.buscaTema(tema, 30);
+            }
             
             request.setAttribute("questList", questList);
             rd = request.getRequestDispatcher("/WEB-INF/user/preguntas/test.jsp");

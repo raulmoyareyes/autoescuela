@@ -4,35 +4,43 @@
 <!-- container -->
 <div class="row">
 
-    <div class="span12 centro">
+    <div class="span13 centro">
         <section>
             <div class="page-header">
-                <h1>Test -  Tema ${p_Variable.tema}¿?</h1> 
+                <h1>
+                    Test -  Tema <%= request.getParameter("tema")%>
+                    <div class="frigth">
+                        <button type="submit" name="crear" class="btn btn-success">Corregir examen</button>
+                        <button type="reset" class="btn btn-danger">Comenzar de nuevo</button>
+                    </div>
+                </h1>
             </div>
             <ul class="thumbnails">
                 <c:forEach var="p" items="${questList}" varStatus="estado">
-                    <li class="width95 span12">
-                        <div class="thumbnail">
-                            <h3 class="padding5">
-                                #<span>${p.id}</span> / Tema: ${p.tema}
-                                <a class="frigth" href="/autoescuela/preguntas/modifica?id=${p.id}"><i class="icon-pencil"></i></a>
-                                <a class="eliminap frigth"href="#modalElimina" data-toggle="modal"><i class="icon-remove"></i></a>
-                            </h3>
-                            <div>
+                    <li id="${p.id}" class="width95 span12">
+                        <form class="thumbnail">
+                            <div class="margin-top-bottom">
                                 <img class="thumbnail inBl" src="../img/${p.imagen}" width="20%"alt="">
                                 <div class="inBl width60">
                                     <p>${p.enunciado}</p>
-                                    <ul>
-                                        <li class=${(p.respuestaCorrecta == "1")?"text-success":"text-error"}>${p.respuesta1}</li>
-                                        <li class=${(p.respuestaCorrecta == "2")?"text-success":"text-error"}>${p.respuesta2}</li>
-                                        <li class=${(p.respuestaCorrecta == "3")?"text-success":"text-error"}>${p.respuesta3}</li>
-                                    </ul>
+                                    <div class="controls">
+                                        <label for="radioRespuesta1" class="radio">${p.respuesta1}<input type="radio" name="radioRespuesta${p.id}" value="1"/></label>
+                                        <label for="radioRespuesta2" class="radio">${p.respuesta2}<input type="radio" name="radioRespuesta${p.id}" value="2"/></label>
+                                        <label for="radioRespuesta3" class="radio">${p.respuesta3}<input type="radio" name="radioRespuesta${p.id}" value="3"/></label>
+                                    </div>
+                                    <div class="frigth">
+                                        <button type="reset" class="btn">Limpiar</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </li>
                 </c:forEach>
             </ul>
+            <div class="frigth">
+                <button type="submit" name="crear" class="btn btn-success">Corregir examen</button>
+                <button type="reset" class="btn btn-danger">Comenzar de nuevo</button>
+            </div>
         </section>
     </div>
 </div>

@@ -46,6 +46,8 @@
                                 <ul class="dropdown-menu">
                                     <li class="disabled">> Última conexión: <a href="#"><%=new Date(session.getCreationTime())%></a></li>
                                     <li class="divider"></li>
+                                    <li><a href="/autoescuela/usuarios/listado">Zona administración</a></li>
+                                    <li><a href="/autoescuela/estadisticas/mostrar">Zona usuario</a></li>
                                     <li><a href="/autoescuela/login?op=close">Cerrar sesión</a></li>
                                 </ul>
                             </li>

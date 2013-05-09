@@ -116,6 +116,61 @@ public class PreguntaDAO {
             return c.subList(0, numPreguntas);
         }
     }
+    
+    public static List<Pregunta> buscaTemaGlobal(int numPreguntas) {
+        /*
+         * Habría que hacer una consulta aleatoria que sólo devuelva n líneas
+         */
+        List<Pregunta> c = null;
+        if (openConexion() != null) {
+            try {
+                String qry = "SELECT * FROM preguntas";
+
+                PreparedStatement stmn = cnx.prepareStatement(qry);
+                ResultSet rs = stmn.executeQuery();
+                c = new ArrayList<Pregunta>();
+                while (rs.next()) {
+                    Pregunta aux = recuperaPregunta(rs);
+                    c.add(aux);
+                }
+                rs.close();
+                stmn.close();
+                closeConexion();
+            } catch (Exception ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            }
+        }
+        //Tenemos en c todas las preguntas del tema "tema"
+        java.util.Date date = new java.util.Date();
+        Collections.shuffle(c, new Random(date.getTime()));
+        if (c == null || c.size() < numPreguntas) {
+            return c;
+        } else {
+            return c.subList(0, numPreguntas);
+        }
+    }
+    
+    public static List<String> numTemas() {
+        List<String> c = null;
+        if (openConexion() != null) {
+            try {
+                String qry = "SELECT DISTINCT tema FROM preguntas";
+
+                PreparedStatement stmn = cnx.prepareStatement(qry);
+                ResultSet rs = stmn.executeQuery();
+                c = new ArrayList<String>();
+                while (rs.next()) {
+                    c.add(rs.getString("tema"));
+                }
+                rs.close();
+                stmn.close();
+                closeConexion();
+            } catch (Exception ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            }
+        }
+        return c;
+    }
 
     public static boolean insertaPregunta(Pregunta p) {
         boolean salida = false;

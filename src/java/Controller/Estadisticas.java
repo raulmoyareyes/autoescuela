@@ -3,7 +3,9 @@
  */
 package Controller;
 
+import Model.PreguntaDAO;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,18 +34,28 @@ public class Estadisticas extends HttpServlet {
 
         HttpSession session = request.getSession();
         if (session.getAttribute("currentUser") == null) {
-            response.sendRedirect("login");
+            response.sendRedirect("/autoescuela/login");
             return;
         }
 
         String action = (request.getPathInfo() != null ? request.getPathInfo() : "");
         String srvUrl = request.getContextPath() + request.getServletPath();
 
+        List<String> temas = PreguntaDAO.numTemas();
+        request.setAttribute("unitList", temas);
+
         RequestDispatcher rd;
         request.setAttribute("srvUrl", srvUrl);
 
-        rd = request.getRequestDispatcher("/WEB-INF/user/estadisticas/mostrar.jsp");
-        rd.forward(request, response);
+        if (action.equals("/mostrar")) {
+
+            rd = request.getRequestDispatcher("/WEB-INF/user/estadisticas/mostrar.jsp");
+            rd.forward(request, response);
+
+        } else {
+            response.sendRedirect("/autoescuela/estadisticas/mostrar");
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -65,8 +65,8 @@
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" name="crear" class="btn btn-primary">Crear usuario</button>
-                    <button type="reset" class="btn">Limpiar</button>
+                    <button type="submit" name="crear" class="btn btn-success">Crear usuario</button>
+                    <button type="reset" class="btn btn-danger">Limpiar</button>
                 </div>
 
             </form>

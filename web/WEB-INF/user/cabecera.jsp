@@ -1,5 +1,6 @@
 <%@page import="java.util.Date"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -39,10 +40,11 @@
                             <li class="dropdown ${(param.op == 'test')?'active':''}">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Test <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/autoescuela/preguntas/test?tema=1">Tema 1</a></li>
-                                    <li class="disabled"><a href="/autoescuela/preguntas/test?tema=2">Tema 2</a></li>
-                                    <li class="divider"></li>
-                                   <li><a href="/autoescuela/preguntas">Global</a></li>
+                                    <c:forEach var="u" items="${unitList}" varStatus="estado">
+                                        <li><a href="/autoescuela/preguntas/test?tema=${u}">Tema ${u}</a></li>
+                                    </c:forEach>
+                                        <li class="divider"></li>
+                                        <li><a href="/autoescuela/preguntas/test?tema=global">Global</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -54,6 +56,8 @@
                                 <ul class="dropdown-menu">
                                     <li class="disabled">> Última conexión: <a href="#"><%=new Date(session.getCreationTime())%></a></li>
                                     <li class="divider"></li>
+                                    <li><a href="/autoescuela/usuarios/listado">Zona administración</a></li>
+                                    <li><a href="/autoescuela/estadisticas/mostrar">Zona usuario</a></li>
                                     <li><a href="/autoescuela/login?op=close">Cerrar sesión</a></li>
                                 </ul>
                             </li>

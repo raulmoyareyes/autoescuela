@@ -66,8 +66,8 @@
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" name="guardar" class="btn btn-primary">Guardar</button>
-                    <button type="reset" class="btn">Restaurar</button>
+                    <button type="submit" name="guardar" class="btn btn-success">Guardar</button>
+                    <button type="reset" class="btn btn-danger">Restaurar</button>
                 </div>
 
             </form>

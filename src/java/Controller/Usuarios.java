@@ -35,7 +35,7 @@ public class Usuarios extends HttpServlet {
         
         HttpSession session = request.getSession();
         if(session.getAttribute("currentUser")==null){
-            response.sendRedirect("login");
+            response.sendRedirect("/autoescuela/login");
             return;
         }
 
