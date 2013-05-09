@@ -12,6 +12,7 @@ import Model.PreguntaDAO;
 //import com.oreilly.servlet.multipart.Part;
 //import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -136,16 +137,50 @@ public class Preguntas extends HttpServlet {
 
     private List<Pregunta> corregirExamen(HttpServletRequest request, HttpServletResponse response) {
 
-        List<Pregunta> questList = null;
+        List<Pregunta> questList = new ArrayList<Pregunta>();
         
         String listId = request.getParameter("listId");
         String[] ids = listId.split(",");
         
         for(int i=0; i<ids.length; i++){
-            //questList.add(PreguntaDAO.buscaID(Integer.parseInt(ids[i])));
+            int id = Integer.parseInt(ids[i]);
+            Pregunta p = PreguntaDAO.buscaID(id);
+            questList.add(p);
         }
         
+        List<Integer> correct = respuestasExamen(request,response, questList);
+        List<Pregunta> correctP = new ArrayList<Pregunta>();
+        int buenas=0;
+        for(int i=0; i<correct.size(); i++){
+            if(questList.get(i).getRespuestaCorrecta() == correct.get(i)){
+                buenas++;
+                correctP.add(questList.get(i));
+            }            
+        }
+        
+        int fallidas = correct.size()-buenas;
+        int sinContestar = questList.size()-correct.size();
+        
+        request.setAttribute("fallidas", fallidas);
+        request.setAttribute("buenas", buenas);
+        request.setAttribute("sin", sinContestar);
+        request.setAttribute("corregir", true);
+        request.setAttribute("correctP", correctP);
+        
         return questList;
+    }
+    
+    private List<Integer> respuestasExamen(HttpServletRequest request, HttpServletResponse respons, List<Pregunta> questList){
+        List<Integer> resList = new ArrayList<Integer>();
+        
+        for(int i=0; i<questList.size(); i++){
+            String id=String.valueOf(questList.get(i).getId());
+            if(request.getParameter(id)!=null){
+                resList.add(Integer.parseInt(request.getParameter(id)));
+            }
+        }
+
+        return resList;
     }
 
     private boolean nuevaPregunta(HttpServletRequest request, HttpServletResponse response) {
