@@ -112,14 +112,9 @@ public class Preguntas extends HttpServlet {
             List<Pregunta> questList;
 
             if (request.getParameter("corregir") != null) {
-                if (request.getParameter("tema").equals("global")) {
-                    questList = PreguntaDAO.buscaTemaGlobal(30);
-                } else {
-                    int tema = Integer.parseInt(request.getParameter("tema"));
-                    questList = PreguntaDAO.buscaTema(tema, 30);
-                }
-            //} else if (request.getParameter("reset") != null) {
-                
+
+                questList = corregirExamen(request, response);
+
             } else {
                 if (request.getParameter("tema").equals("global")) {
                     questList = PreguntaDAO.buscaTemaGlobal(30);
@@ -139,9 +134,18 @@ public class Preguntas extends HttpServlet {
 
     }
 
-    private boolean resultadosExamen() {
+    private List<Pregunta> corregirExamen(HttpServletRequest request, HttpServletResponse response) {
 
-        return false;
+        List<Pregunta> questList = null;
+        
+        String listId = request.getParameter("listId");
+        String[] ids = listId.split(",");
+        
+        for(int i=0; i<ids.length; i++){
+            //questList.add(PreguntaDAO.buscaID(Integer.parseInt(ids[i])));
+        }
+        
+        return questList;
     }
 
     private boolean nuevaPregunta(HttpServletRequest request, HttpServletResponse response) {
