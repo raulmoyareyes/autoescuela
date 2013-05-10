@@ -25,7 +25,7 @@
                                 <a class="frigth" href="/autoescuela/preguntas/modifica?id=${p.id}"><i class="icon-pencil"></i></a>
                                 <a class="eliminap frigth"href="#modalElimina" data-toggle="modal"><i class="icon-remove"></i></a>
                             </h3>
-                            <div>
+                                <div class="margin-bottom-20">
                                 <img class="thumbnail inBl" src="../img/${p.imagen}" width="20%"alt="">
                                 <div class="inBl width60">
                                     <p>${p.enunciado}</p>
