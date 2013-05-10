@@ -14,3 +14,14 @@ CREATE TABLE "PREGUNTAS"(
     "ID"                INT             NOT NULL PRIMARY KEY
             GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)
 );
+
+
+CREATE TABLE "RESULTADOSEXAMEN"(
+    "ID"                INT             NOT NULL PRIMARY KEY
+            GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+    "FECHAHORA"         TIMESTAMP       NOT NULL,
+    "ACERTADAS"         INTEGER         NOT NULL,
+    "FALLADAS"          INTEGER         NOT NULL,   
+    "BLANCO"            INTEGER         NOT NULL,
+    "USUARIO"           VARCHAR(9)      NOT NULL
+);
