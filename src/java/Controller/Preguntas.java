@@ -5,6 +5,9 @@ package Controller;
 
 import Model.Pregunta;
 import Model.PreguntaDAO;
+import Model.ResultadoExamen;
+import Model.ResultadoExamenDAO;
+import Model.Usuario;
 //import Model.Usuario;
 //import Model.UsuarioDAO;
 //import com.oreilly.servlet.multipart.FilePart;
@@ -166,6 +169,12 @@ public class Preguntas extends HttpServlet {
         request.setAttribute("sin", sinContestar);
         request.setAttribute("corregir", true);
         request.setAttribute("correctP", correctP);
+        
+        HttpSession session = request.getSession();
+        Usuario user = (Usuario)session.getAttribute("currentUser");
+        
+        ResultadoExamen resultado = new ResultadoExamen(buenas, fallidas, sinContestar, user.getDni());
+        ResultadoExamenDAO.insertaResultadoExamen(resultado);
         
         return questList;
     }

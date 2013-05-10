@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * 
  */
 package Model;
 
@@ -20,10 +19,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-/**
- *
- * @author Sammy Guergachi <sguergachi at gmail.com>
- */
 public class PreguntaDAO {
 
     private static Connection cnx;

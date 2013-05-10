@@ -1,23 +1,21 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/WEB-INF/user/cabecera.jsp?op=test"/>
 <!-- container -->
 <div class="row">
-
-    <!--Cosas por hacer
-    
-    Eliminar boton de corregir cuando se corrija
-    Poner más bonita la parte de los resultados
-    Crear el Dao para guardar resultados 
-    
-    -->
     <div class="span13 centro">
         <section>
             <c:if test="${corregir != null}">
-                <div>
-                    Respuestas correctas: ${buenas}
-                    Respuestas fallidas: ${fallidas}
-                    Respuestas sin contestar: ${sin}
+                <div class="alert alert-info">
+                    <div class="progress">
+                        <div class="bar bar-success" style="width: ${buenas*100/fn:length(questList)}%;"></div>
+                        <div class="bar bar-warning" style="width: ${sin*100/fn:length(questList)}%;"></div>
+                        <div class="bar bar-danger" style="width: ${fallidas*100/fn:length(questList)}%;"></div>
+                    </div>
+                        <span class="text-success">Respuestas correctas: ${buenas} -</span>
+                        <span class="text-warning">Respuestas sin contestar: ${sin} -</span>
+                        <span class="text-error">Respuestas fallidas: ${fallidas}</span>
                 </div>
             </c:if>
             <form method="post">
@@ -27,12 +25,12 @@
                     <h1>
                         Test -  Tema <%= request.getParameter("tema")%>
                         <div class="frigth">
-                            <button type="submit" name="corregir" class="btn btn-success">Corregir examen</button>
-                            <button type="submit" class="btn btn-danger">Nuevo examen</button>
-                        </div>
-                    </h1>
-                </div>
-                <ul class="thumbnails">
+                            <c:if test="${corregir == null}"><button type="submit" name="corregir" class="btn btn-success">Corregir examen</button></c:if>
+                                <button type="submit" class="btn btn-danger">Nuevo examen</button>
+                            </div>
+                        </h1>
+                    </div>
+                    <ul class="thumbnails">
                     <c:forEach var="p" items="${questList}" varStatus="estado">
                         <li class="width95 span12">
                             <div class="thumbnail">
@@ -52,13 +50,13 @@
                     </c:forEach>
                 </ul>
                 <div class="frigth" method="post">
-                    <button type="submit" name="corregir" class="btn btn-success">Corregir examen</button>
-                    <button type="submit" class="btn btn-danger">Nuevo examen</button>
-                </div>
-            </form>
-        </section>
+                    <c:if test="${corregir == null}"><button type="submit" name="corregir" class="btn btn-success">Corregir examen</button></c:if>
+                        <button type="submit" class="btn btn-danger">Nuevo examen</button>
+                    </div>
+                </form>
+            </section>
+        </div>
     </div>
-</div>
-<!-- container -->
+    <!-- container -->
 
 <jsp:include page="/WEB-INF/user/pie.jsp"/>
