@@ -6,7 +6,6 @@ package Model;
 
 import static Model.ResultadoExamenDAO.closeConexion;
 import static Model.ResultadoExamenDAO.openConexion;
-import static Model.ResultadoExamenDAO.recuperaResultadoExamen;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -76,14 +75,14 @@ public class ResultadoPreguntaDAO {
         return c;
     }
     
-    public static boolean insertaResultadoExamen(ResultadoExamen r) {
+    public static boolean insertaResultadoPregunta(ResultadoPregunta r) {
         boolean salida = false;
         if (openConexion() != null) {
             try {
 
-                String qry = "INSERT INTO resultadospregunta";
+                String qry = "INSERT INTO resultadospregunta"; ///////////////////////////
                 PreparedStatement stmn = cnx.prepareStatement(qry);
-                stmn.setInt(1, r.getAcertadas());
+                //stmn.setInt(1, r.getAcertadas());
 
                 if (stmn.executeUpdate() > 0) {
                     salida = true;

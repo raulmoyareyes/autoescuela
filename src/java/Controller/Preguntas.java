@@ -7,6 +7,7 @@ import Model.Pregunta;
 import Model.PreguntaDAO;
 import Model.ResultadoExamen;
 import Model.ResultadoExamenDAO;
+import Model.ResultadoPreguntaDAO;
 import Model.Usuario;
 //import Model.Usuario;
 //import Model.UsuarioDAO;
@@ -177,7 +178,7 @@ public class Preguntas extends HttpServlet {
         return questList;
     }
     
-    private List<Integer> respuestasExamen(HttpServletRequest request, HttpServletResponse respons, List<Pregunta> questList){
+    private List<Integer> respuestasExamen(HttpServletRequest request, HttpServletResponse response, List<Pregunta> questList){
         List<Integer> resList = new ArrayList<Integer>();
         
         for(int i=0; i<questList.size(); i++){
