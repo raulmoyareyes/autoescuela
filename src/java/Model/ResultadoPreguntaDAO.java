@@ -48,7 +48,7 @@ public class ResultadoPreguntaDAO {
     public static ResultadoPregunta recuperaResultadoPregunta(ResultSet rs) {
         ResultadoPregunta p = null;
         try {
-            p = new ResultadoPregunta();
+            p = new ResultadoPregunta(rs.getInt("examen"), rs.getInt("pregunta"), rs.getInt("resultado"));
         } catch (Exception ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
@@ -80,9 +80,11 @@ public class ResultadoPreguntaDAO {
         if (openConexion() != null) {
             try {
 
-                String qry = "INSERT INTO resultadospregunta"; ///////////////////////////
+                String qry = "INSERT INTO resultadospreguntas(examen, pregunta, resultado) VALUES(?, ?, ?)";
                 PreparedStatement stmn = cnx.prepareStatement(qry);
-                //stmn.setInt(1, r.getAcertadas());
+                stmn.setInt(1, r.getExamen());
+                stmn.setInt(2, r.getPregunta());
+                stmn.setInt(3, r.getResultado());
 
                 if (stmn.executeUpdate() > 0) {
                     salida = true;

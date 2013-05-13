@@ -6,7 +6,6 @@ package Model;
 
 import static Model.PreguntaDAO.closeConexion;
 import static Model.PreguntaDAO.openConexion;
-import static Model.PreguntaDAO.recuperaPregunta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -99,5 +98,24 @@ public class ResultadoExamenDAO {
             }
         }
         return salida;
+    }
+    
+    public static int ultimo() {
+        int c = -1;
+        if (openConexion() != null) {
+            try {
+                String qry = "SELECT id FROM resultadosexamen ORDER BY fechahora DESC";
+                PreparedStatement stmn = cnx.prepareStatement(qry);
+                ResultSet rs = stmn.executeQuery();
+                rs.next();
+                c = rs.getInt("id");
+                rs.close();
+                stmn.close();
+                closeConexion();
+            } catch (Exception ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            }
+        }
+        return c;
     }
 }

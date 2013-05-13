@@ -7,6 +7,7 @@ import Model.Pregunta;
 import Model.PreguntaDAO;
 import Model.ResultadoExamen;
 import Model.ResultadoExamenDAO;
+import Model.ResultadoPregunta;
 import Model.ResultadoPreguntaDAO;
 import Model.Usuario;
 //import Model.Usuario;
@@ -174,6 +175,20 @@ public class Preguntas extends HttpServlet {
         
         ResultadoExamen resultado = new ResultadoExamen(buenas, fallidas, sinContestar, user.getDni());
         ResultadoExamenDAO.insertaResultadoExamen(resultado);
+        
+        for(int i=0; i<respuestas.size(); i++){
+            ResultadoPregunta r = new ResultadoPregunta();
+            r.setExamen(ResultadoExamenDAO.ultimo());
+            r.setPregunta(questList.get(i).getId());
+            if(questList.get(i).getRespuestaCorrecta() == respuestas.get(i)){
+                r.setResultado(0);
+            } else if(respuestas.get(i) == -1 ){
+                r.setResultado(2);
+            } else {
+                r.setResultado(1);
+            }
+            ResultadoPreguntaDAO.insertaResultadoPregunta(r);
+        }
         
         return questList;
     }
