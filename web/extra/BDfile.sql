@@ -8,6 +8,12 @@
     CREACION DE TABLAS
  ******************************************************************************/
 
+
+CREATE TABLE "USUARIOS"(
+
+);
+
+
 CREATE TABLE "PREGUNTAS"(
     "ENUNCIADO"         VARCHAR(500)    NOT NULL,
     "RESPUESTA1"        VARCHAR(500)    NOT NULL,
@@ -43,3 +49,9 @@ CREATE TABLE "RESULTADOSPREGUNTAS"(
     FOREIGN KEY ("EXAMEN") REFERENCES ADMINISTRADOR.RESULTADOSEXAMEN ON DELETE CASCADE,
     FOREIGN KEY ("PREGUNTA") REFERENCES ADMINISTRADOR.PREGUNTAS ON DELETE CASCADE
 );
+
+
+/*******************************************************************************
+    DATOS DE EJEMPLO
+ ******************************************************************************/
+
