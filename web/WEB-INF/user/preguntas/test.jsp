@@ -4,7 +4,7 @@
 <jsp:include page="/WEB-INF/user/cabecera.jsp?op=test"/>
 <!-- container -->
 <div class="row">
-    <div class="span13 centro">
+    <div class="centro">
         <section>
             <c:if test="${corregir != null}">
                 <div class="alert alert-info">
@@ -13,9 +13,9 @@
                         <div class="bar bar-warning" style="width: ${sin*100/fn:length(questList)}%;"></div>
                         <div class="bar bar-danger" style="width: ${fallidas*100/fn:length(questList)}%;"></div>
                     </div>
-                        <span class="text-success">Respuestas correctas: ${buenas} -</span>
-                        <span class="text-warning">Respuestas sin contestar: ${sin} -</span>
-                        <span class="text-error">Respuestas fallidas: ${fallidas}</span>
+                    <span class="text-success">Respuestas correctas: ${buenas} -</span>
+                    <span class="text-warning">Respuestas sin contestar: ${sin} -</span>
+                    <span class="text-error">Respuestas fallidas: ${fallidas}</span>
                 </div>
             </c:if>
             <form method="post">
@@ -26,10 +26,10 @@
                         Test -  Tema <%= request.getParameter("tema")%>
                         <div class="frigth">
                             <c:if test="${corregir == null}"><button type="submit" name="corregir" class="btn btn-success">Corregir examen</button></c:if>
-                            <button type="submit" class="btn btn-danger">Nuevo examen</button>
-                        </div>
-                    </h1>
-                </div>
+                                <button type="submit" class="btn btn-danger">Nuevo examen</button>
+                            </div>
+                        </h1>
+                    </div>
                     <ul class="thumbnails">
                     <c:forEach var="p" items="${questList}" varStatus="estado">
                         <li class="width95 span12">
