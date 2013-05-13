@@ -151,6 +151,28 @@ public class UsuarioDAO {
         }
         return c;
     }
+    
+        public static List<Usuario> preparados() {
+        List<Usuario> c = null;
+        if (openConexion() != null) {
+            try {
+                String qry = "SELECT * FROM usuarios";
+                PreparedStatement stmn = cnx.prepareStatement(qry);
+                ResultSet rs = stmn.executeQuery();
+                c = new ArrayList<Usuario>();
+                while (rs.next()) {
+                    Usuario aux = recuperaUsuario(rs);
+                    c.add(aux);
+                }
+                rs.close();
+                stmn.close();
+                closeConexion();
+            } catch (Exception ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            }
+        }
+        return c;
+    }
 
     public static boolean modificaUsuario(Usuario u, String DNI) {
         boolean salida = false;

@@ -151,24 +151,22 @@ public class Preguntas extends HttpServlet {
             questList.add(p);
         }
         
-        List<Integer> correct = respuestasExamen(request,response, questList);
-        List<Pregunta> correctP = new ArrayList<Pregunta>();
-        int buenas=0;
-        for(int i=0; i<correct.size(); i++){
-            if(questList.get(i).getRespuestaCorrecta() == correct.get(i)){
+        List<Integer> respuestas = respuestasExamen(request,response, questList);
+        int buenas=0, sinContestar=0, fallidas=0;
+        for(int i=0; i<respuestas.size(); i++){
+            if(questList.get(i).getRespuestaCorrecta() == respuestas.get(i)){
                 buenas++;
-                correctP.add(questList.get(i));
-            }            
+            } else if(respuestas.get(i) == -1 ){
+                sinContestar++;
+            } else {
+                fallidas++;
+            }
         }
-        
-        int fallidas = correct.size()-buenas;
-        int sinContestar = questList.size()-correct.size();
         
         request.setAttribute("fallidas", fallidas);
         request.setAttribute("buenas", buenas);
         request.setAttribute("sin", sinContestar);
         request.setAttribute("corregir", true);
-        request.setAttribute("correctP", correctP);
         
         HttpSession session = request.getSession();
         Usuario user = (Usuario)session.getAttribute("currentUser");
@@ -186,6 +184,8 @@ public class Preguntas extends HttpServlet {
             String id=String.valueOf(questList.get(i).getId());
             if(request.getParameter(id)!=null){
                 resList.add(Integer.parseInt(request.getParameter(id)));
+            } else {
+                resList.add(-1);
             }
         }
 

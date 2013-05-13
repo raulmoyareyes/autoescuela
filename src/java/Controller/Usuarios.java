@@ -69,6 +69,8 @@ public class Usuarios extends HttpServlet {
 
         } else if (action.equals("/preparados")) { /////////////////////////////
 
+            List<Usuario> userList = UsuarioDAO.preparados();
+            request.setAttribute("userList", userList);
             rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/preparados.jsp");
             rd.forward(request, response);
 

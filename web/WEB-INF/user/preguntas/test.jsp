@@ -26,10 +26,10 @@
                         Test -  Tema <%= request.getParameter("tema")%>
                         <div class="frigth">
                             <c:if test="${corregir == null}"><button type="submit" name="corregir" class="btn btn-success">Corregir examen</button></c:if>
-                                <button type="submit" class="btn btn-danger">Nuevo examen</button>
-                            </div>
-                        </h1>
-                    </div>
+                            <button type="submit" class="btn btn-danger">Nuevo examen</button>
+                        </div>
+                    </h1>
+                </div>
                     <ul class="thumbnails">
                     <c:forEach var="p" items="${questList}" varStatus="estado">
                         <li class="width95 span12">
