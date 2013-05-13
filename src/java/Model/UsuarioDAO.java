@@ -160,7 +160,7 @@ public class UsuarioDAO {
      */
     public static float getProgreso(String DNI) {
         int numAcertadas = 0;
-        int maxRows = 6;
+        int maxRows = 30;
         if (openConexion() != null) {
             try {
                 String qry = "SELECT * FROM resultadosexamen WHERE usuario=? ORDER BY fechahora DESC";
@@ -186,8 +186,7 @@ public class UsuarioDAO {
                 Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
-        float loQueDevuelve= (float) numAcertadas / (float) maxRows * (float) 100.0;
-        return loQueDevuelve;
+        return (float) numAcertadas / (float) maxRows * (float) 100.0;
     }
 
     public static List<Usuario> preparados() {
