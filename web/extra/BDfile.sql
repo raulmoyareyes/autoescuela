@@ -3,6 +3,11 @@
     BASE DE DATOS DEL PROYECTO
  ******************************************************************************/
 
+
+/*******************************************************************************
+    CREACION DE TABLAS
+ ******************************************************************************/
+
 CREATE TABLE "PREGUNTAS"(
     "ENUNCIADO"         VARCHAR(500)    NOT NULL,
     "RESPUESTA1"        VARCHAR(500)    NOT NULL,
@@ -38,3 +43,10 @@ CREATE TABLE "RESULTADOSPREGUNTAS"(
     FOREIGN KEY ("EXAMEN") REFERENCES ADMINISTRADOR.RESULTADOSEXAMEN,
     FOREIGN KEY ("PREGUNTA") REFERENCES ADMINISTRADOR.PREGUNTAS
 );
+
+
+
+
+/*******************************************************************************
+    DATOS DE EJEMPLO
+ ******************************************************************************/
