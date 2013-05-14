@@ -4,8 +4,8 @@
  */
 package Model;
 
-import static Model.PreguntaDAO.closeConexion;
-import static Model.PreguntaDAO.openConexion;
+import static Model.UsuarioDAO.closeConexion;
+import static Model.UsuarioDAO.openConexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,12 +43,12 @@ public class ResultadoExamenDAO {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
-    
+
     public static ResultadoExamen recuperaResultadoExamen(ResultSet rs) {
         ResultadoExamen p = null;
         try {
             //int _id, int _fechaHora, int _acertadas, int _falladas, int _blanco, String _usuario
-            p = new ResultadoExamen(rs.getInt("id"),rs.getInt("fechahora"),rs.getInt("acertadas"),rs.getInt("falladas"),rs.getInt("blanco"),rs.getString("usuario"));
+            p = new ResultadoExamen(rs.getInt("id"), rs.getInt("fechahora"), rs.getInt("acertadas"), rs.getInt("falladas"), rs.getInt("blanco"), rs.getString("usuario"));
         } catch (Exception ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
@@ -74,7 +74,7 @@ public class ResultadoExamenDAO {
         }
         return c;
     }
-    
+
     public static boolean insertaResultadoExamen(ResultadoExamen r) {
         boolean salida = false;
         if (openConexion() != null) {
@@ -99,7 +99,7 @@ public class ResultadoExamenDAO {
         }
         return salida;
     }
-    
+
     public static int ultimo() {
         int c = -1;
         if (openConexion() != null) {
@@ -117,5 +117,62 @@ public class ResultadoExamenDAO {
             }
         }
         return c;
+    }
+
+    /**
+     * Devuelve el progreso del alumno
+     *
+     * @param DNI DNI del alumno
+     * @return Número entre 0 y 100 indicando del progreso del alumno
+     */
+    public static float getProgreso(String DNI) {
+        int numAcertadas = 0;
+        int maxRows = 30;
+        if (openConexion() != null) {
+            try {
+                String qry = "SELECT * FROM resultadosexamen WHERE usuario=? ORDER BY fechahora DESC";
+                PreparedStatement stmn = cnx.prepareStatement(qry);
+                stmn.setString(1, DNI);
+                stmn.setMaxRows(maxRows);
+                ResultSet rs = stmn.executeQuery();
+                while (rs.next()) {
+                    int acertadas = Integer.parseInt(rs.getString("acertadas"));
+                    int falladas = Integer.parseInt(rs.getString("falladas"));
+                    int blanco = Integer.parseInt(rs.getString("blanco"));
+                    int total = acertadas + falladas + blanco;
+                    int maxAprobar = (int) Math.floor(0.9 * (float) total);
+
+                    if (acertadas >= maxAprobar) {
+                        ++numAcertadas;
+                    }
+                }
+                rs.close();
+                stmn.close();
+                closeConexion();
+            } catch (Exception ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            }
+        }
+        return (float) numAcertadas / (float) maxRows * (float) 100.0;
+    }
+
+    public static int numExamenes(String DNI) {
+        int num=0;
+        if (openConexion() != null) {
+            try {
+                String qry = "SELECT COUNT(id) NUM FROM resultadosexamen WHERE usuario=?";
+                PreparedStatement stmn = cnx.prepareStatement(qry);
+                stmn.setString(1, DNI);
+                ResultSet rs = stmn.executeQuery();
+                rs.next();
+                num = rs.getInt("num");
+                rs.close();
+                stmn.close();
+                closeConexion();
+            } catch (Exception ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            }
+        }
+        return num;
     }
 }

@@ -4,6 +4,8 @@
 package Controller;
 
 import Model.PreguntaDAO;
+import Model.ResultadoExamenDAO;
+import Model.Usuario;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -48,7 +50,14 @@ public class Estadisticas extends HttpServlet {
         request.setAttribute("srvUrl", srvUrl);
 
         if (action.equals("/mostrar")) {
-
+            
+            Usuario u = (Usuario) session.getAttribute("currentUser");
+            float progreso = ResultadoExamenDAO.getProgreso(u.getDni());
+            request.setAttribute("progresoG", progreso);
+            
+            int num = ResultadoExamenDAO.numExamenes(u.getDni());
+            request.setAttribute("numExam", num);
+            
             rd = request.getRequestDispatcher("/WEB-INF/user/estadisticas/mostrar.jsp");
             rd.forward(request, response);
 
