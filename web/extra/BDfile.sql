@@ -58,3 +58,5 @@ CREATE TABLE "RESULTADOSPREGUNTAS"(
 /*******************************************************************************
     DATOS DE EJEMPLO
 ******************************************************************************/
+INSERT INTO USUARIOS VALUE ("Raúl","Moya Reyes","11111111A","C/Rio Duero nº12","666525111","123456",1);
+INSERT INTO USUARIOS VALUE ("Manuel José","Castro Damas","22222222B","C/Molinillo nº1","666555111","123456",1);
