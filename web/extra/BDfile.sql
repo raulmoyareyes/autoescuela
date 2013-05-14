@@ -58,5 +58,39 @@ CREATE TABLE "RESULTADOSPREGUNTAS"(
 /*******************************************************************************
     DATOS DE EJEMPLO
 ******************************************************************************/
-INSERT INTO USUARIOS VALUE ("Raúl","Moya Reyes","11111111A","C/Rio Duero nº12","666525111","123456",1);
-INSERT INTO USUARIOS VALUE ("Manuel José","Castro Damas","22222222B","C/Molinillo nº1","666555111","123456",1);
+/********************************************USUARIOS**********************************************/
+INSERT INTO ADMINISTRADOR.USUARIOS (NOMBRE, APELLIDOS, DNI, DIRECCION, TELEFONO, PASSWORD, GRUPO) 
+	VALUES ('Manuel José', 'Castro Damas', '77362439F', 'C/Molinillo nº1', '680532097', '123456', 1);
+INSERT INTO ADMINISTRADOR.USUARIOS (NOMBRE, APELLIDOS, DNI, DIRECCION, TELEFONO, PASSWORD, GRUPO) 
+	VALUES ('Raul', 'Moya Reyes', '11111111A', 'C/Rio Duero nº3', '688555111', '123456', 1);
+INSERT INTO ADMINISTRADOR.USUARIOS (NOMBRE, APELLIDOS, DNI, DIRECCION, TELEFONO, PASSWORD, GRUPO) 
+	VALUES ('Agustín', 'Ruiz Linares', '33333333C', 'C/Rector nº4', '688885544', '123456', 1);
+INSERT INTO ADMINISTRADOR.USUARIOS (NOMBRE, APELLIDOS, DNI, DIRECCION, TELEFONO, PASSWORD, GRUPO) 
+	VALUES ('Gabriel', 'Fernández Moral', '44444444D', 'Av/ Granada nº 23', '622332233', '123456', 1);
+INSERT INTO ADMINISTRADOR.USUARIOS (NOMBRE, APELLIDOS, DNI, DIRECCION, TELEFONO, PASSWORD, GRUPO) 
+	VALUES ('Alberto', 'Téllez Aguallo', '12222222A', 'C/Legaspi nº 5', '679511222', '123456', 0);
+INSERT INTO ADMINISTRADOR.USUARIOS (NOMBRE, APELLIDOS, DNI, DIRECCION, TELEFONO, PASSWORD, GRUPO) 
+	VALUES ('Francisco Javier', 'Castro Ramirez', '23333333B', 'C/Moral nº 5', '633223322', '123456', 0);
+INSERT INTO ADMINISTRADOR.USUARIOS (NOMBRE, APELLIDOS, DNI, DIRECCION, TELEFONO, PASSWORD, GRUPO) 
+	VALUES ('Juan', 'Chica Estrella', '24444444F', 'Av/ Andalucia nº3 Bajo', '655655655', '123456', 0);
+INSERT INTO ADMINISTRADOR.USUARIOS (NOMBRE, APELLIDOS, DNI, DIRECCION, TELEFONO, PASSWORD, GRUPO) 
+	VALUES ('Manuel', 'Pancorbo Peinado', '25555555G', 'C/ Torres Altas nº 9', '699699699', '123456', 0);
+INSERT INTO ADMINISTRADOR.USUARIOS (NOMBRE, APELLIDOS, DNI, DIRECCION, TELEFONO, PASSWORD, GRUPO) 
+	VALUES ('Rosa', 'Ramirez Fanca', '26666666R', 'C/Moya nº 5', '688688688', '123456', 0);
+INSERT INTO ADMINISTRADOR.USUARIOS (NOMBRE, APELLIDOS, DNI, DIRECCION, TELEFONO, PASSWORD, GRUPO) 
+	VALUES ('María', 'Castillo Torres', '27777777T', 'C/Rio Tajo ', '658658658', '123456', 0);
+INSERT INTO ADMINISTRADOR.USUARIOS (NOMBRE, APELLIDOS, DNI, DIRECCION, TELEFONO, PASSWORD, GRUPO) 
+	VALUES ('Daniel', 'Peinado Pestaña', '28888888C', 'Av/ Andalucia nº9', '632632652', '123456', 0);
+INSERT INTO ADMINISTRADOR.USUARIOS (NOMBRE, APELLIDOS, DNI, DIRECCION, TELEFONO, PASSWORD, GRUPO) 
+	VALUES ('Nuria', 'Barranco Ureña', '31111111L', 'C/Legaspi nº 4', '654654698', '123456', 0);
+INSERT INTO ADMINISTRADOR.USUARIOS (NOMBRE, APELLIDOS, DNI, DIRECCION, TELEFONO, PASSWORD, GRUPO) 
+	VALUES ('Jose Ramón', 'Ureña Ureña', '32222222W', 'Av/ Norte nº3 1º B', '953558899', '123456', 0);
+
+
+
+
+
+
+/********************************************PREGUNTAS**********************************************/
+INSERT INTO ADMINISTRADOR.PREGUNTAS (ENUNCIADO, RESPUESTA1, RESPUESTA2, RESPUESTA3, RESPUESTACORRECTA, TEMA, IMAGEN) 
+	VALUES ('En una vía fuera de poblado con arcén suficiente y transitable, ¿por qué parte de la vía circulará con un cuadriciclo ligero?', 'Por el arcén derecho.', 'Por el carril derecho de la calzada, sin invadir el arcén.', 'Por el carril derecho de la calzada, aunque deberé desplazarme al arcén cuando obstaculice la marcha normal del resto de los vehículos.', 1, 1, 'no_image.png');
