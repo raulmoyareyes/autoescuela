@@ -152,43 +152,6 @@ public class UsuarioDAO {
         return c;
     }
 
-    /**
-     * Devuelve el progreso del alumno
-     *
-     * @param DNI DNI del alumno
-     * @return Número entre 0 y 100 indicando del progreso del alumno
-     */
-    public static float getProgreso(String DNI) {
-        int numAcertadas = 0;
-        int maxRows = 30;
-        if (openConexion() != null) {
-            try {
-                String qry = "SELECT * FROM resultadosexamen WHERE usuario=? ORDER BY fechahora DESC";
-                PreparedStatement stmn = cnx.prepareStatement(qry);
-                stmn.setString(1, DNI);
-                stmn.setMaxRows(maxRows);
-                ResultSet rs = stmn.executeQuery();
-                while (rs.next()) {
-                    int acertadas = Integer.parseInt(rs.getString("acertadas"));
-                    int falladas = Integer.parseInt(rs.getString("falladas"));
-                    int blanco = Integer.parseInt(rs.getString("blanco"));
-                    int total = acertadas + falladas + blanco;
-                    int maxAprobar = (int) Math.floor(0.9 * (float) total);
-
-                    if (acertadas >= maxAprobar) {
-                        ++numAcertadas;
-                    }
-                }
-                rs.close();
-                stmn.close();
-                closeConexion();
-            } catch (Exception ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
-            }
-        }
-        return (float) numAcertadas / (float) maxRows * (float) 100.0;
-    }
-
     public static List<Usuario> preparados() {
         List<Usuario> c = null;
         float minimoPreparado = (float)90; //90%
@@ -199,7 +162,7 @@ public class UsuarioDAO {
                 ResultSet rs = stmn.executeQuery();
                 c = new ArrayList<Usuario>();
                 while (rs.next()) {
-                    float progreso = getProgreso(rs.getString("dni"));
+                    float progreso = ResultadoExamenDAO.getProgreso(rs.getString("dni"));
                     if (progreso >= minimoPreparado) {
                         Usuario aux = recuperaUsuario(rs);
                         c.add(aux);
