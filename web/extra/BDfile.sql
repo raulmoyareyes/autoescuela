@@ -3,6 +3,26 @@
     BASE DE DATOS DEL PROYECTO
 ******************************************************************************/
 
+/*
+    Hay que crear una base de datos con los siguientes parametros, tanto el pool como 
+    el recurso a base de datos se incluyen en el proyecto usando Glashfish.
+    
+    <resources>
+      <jdbc-resource enabled="true" jndi-name="jdbc/autoescuela" object-type="user" pool-name="getsAuto">
+        <description/>
+      </jdbc-resource>
+      <jdbc-connection-pool allow-non-component-callers="false" associate-with-thread="false" connection-creation-retry-attempts="0" connection-creation-retry-interval-in-seconds="10" connection-leak-reclaim="false" connection-leak-timeout-in-seconds="0" connection-validation-method="auto-commit" datasource-classname="org.apache.derby.jdbc.ClientDataSource" fail-all-connections="false" idle-timeout-in-seconds="300" is-connection-validation-required="false" is-isolation-level-guaranteed="true" lazy-connection-association="false" lazy-connection-enlistment="false" match-connections="false" max-connection-usage-count="0" max-pool-size="100" max-wait-time-in-millis="60000" name="getsAuto" non-transactional-connections="false" ping="false" pool-resize-quantity="2" pooling="true" res-type="javax.sql.DataSource" statement-cache-size="0" statement-leak-reclaim="false" statement-leak-timeout-in-seconds="0" statement-timeout-in-seconds="-1" steady-pool-size="8" validate-atmost-once-period-in-seconds="0" wrap-jdbc-objects="false">
+        <property name="URL" value="jdbc:derby://localhost:1527/autoescuelaDB"/>
+        <property name="serverName" value="localhost"/>
+        <property name="PortNumber" value="1527"/>
+        <property name="DatabaseName" value="autoescuelaDB"/>
+        <property name="User" value="administrador"/>
+        <property name="Password" value="123456"/>
+      </jdbc-connection-pool>
+    </resources>
+
+ */
+
 
 /*******************************************************************************
     CREACION DE TABLAS
@@ -58,6 +78,7 @@ CREATE TABLE "RESULTADOSPREGUNTAS"(
 /*******************************************************************************
     DATOS DE EJEMPLO
 ******************************************************************************/
+
 /********************************************USUARIOS**********************************************/
 INSERT INTO ADMINISTRADOR.USUARIOS (NOMBRE, APELLIDOS, DNI, DIRECCION, TELEFONO, PASSWORD, GRUPO) 
 	VALUES ('Manuel José', 'Castro Damas', '77362439F', 'C/Molinillo nº1', '680532097', '123456', 1);
@@ -376,3 +397,8 @@ INSERT INTO ADMINISTRADOR.PREGUNTAS (ENUNCIADO, RESPUESTA1, RESPUESTA2, RESPUEST
 	VALUES ('Ud. circula por un carril destinado al sentido normal de circulación contiguo a uno que se ha habilitado en sentido contrario al habitual. Si ha quedado un solo carril en su sentido de circulación, ¿qué debe hacer?', 'Nada, porque circulo por la parte de la calzada a mi sentido destinada.', 'Circular con la luz de cruce encendida, al menos y a una velocidad no inferior a la máxima permitida para la vía.', 'Circular con la luz de cruce encendida, al menos y a una velocidad no inferior a 60 kilómetros por hora ni superior a 80 kilómetros por hora o inferiores si así estuviera establecido o específicamente señalizado.', 3, 5, 'no_image.png');
 INSERT INTO ADMINISTRADOR.PREGUNTAS (ENUNCIADO, RESPUESTA1, RESPUESTA2, RESPUESTA3, RESPUESTACORRECTA, TEMA, IMAGEN) 
 	VALUES ('Con tiempo frío, la calzada puede estar helada y deslizante, pero ¿sabe Ud. qué zonas de la calzada son especialmente propensas al hielo?', 'Los túneles.', 'Los lugares sombríos y húmedos.', 'Los tramos de vía rectos y cambios de rasante.', 2, 5, 'no_image.png');
+
+
+/********************************************RESULTADOSEXAMEN**********************************************/
+INSERT INTO ADMINISTRADOR.RESULTADOSEXAMEN (FECHAHORA, ACERTADAS, FALLADAS, BLANCO, USUARIO) 
+	VALUES (CURRENT_TIMESTAMP, 18, 1, 1, '11111111A');
