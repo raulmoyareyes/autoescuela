@@ -3,8 +3,6 @@
  */
 package Model;
 
-import static Model.UsuarioDAO.closeConexion;
-import static Model.UsuarioDAO.openConexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,7 +31,7 @@ public class PreguntaDAO {
             cnx = ds.getConnection();
 
         } catch (Exception ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            Logger.getLogger(PreguntaDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
 
         return cnx;
@@ -43,7 +41,7 @@ public class PreguntaDAO {
         try {
             cnx.close();
         } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            Logger.getLogger(PreguntaDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
 
@@ -53,7 +51,7 @@ public class PreguntaDAO {
             //String _enunciado, String _respuesta1, String _respuesta2, String _respuesta3, int _respuestaCorrecta, int _tema, String _imagen, int _id
             p = new Pregunta(rs.getString("enunciado"), rs.getString("respuesta1"), rs.getString("respuesta2"), rs.getString("respuesta3"), rs.getInt("respuestaCorrecta"), rs.getInt("tema"), rs.getString("imagen"), rs.getInt("id"));
         } catch (Exception ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            Logger.getLogger(PreguntaDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
         return p;
     }
@@ -72,7 +70,7 @@ public class PreguntaDAO {
                 stmn.close();
                 closeConexion();
             } catch (Exception ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                Logger.getLogger(PreguntaDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
         return c;
@@ -99,7 +97,7 @@ public class PreguntaDAO {
                 stmn.close();
                 closeConexion();
             } catch (Exception ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                Logger.getLogger(PreguntaDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
         //Tenemos en c todas las preguntas del tema "tema"
@@ -132,7 +130,7 @@ public class PreguntaDAO {
                 stmn.close();
                 closeConexion();
             } catch (Exception ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                Logger.getLogger(PreguntaDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
         //Tenemos en c todas las preguntas del tema "tema"
@@ -161,7 +159,7 @@ public class PreguntaDAO {
                 stmn.close();
                 closeConexion();
             } catch (Exception ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                Logger.getLogger(PreguntaDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
         return c;
@@ -189,7 +187,7 @@ public class PreguntaDAO {
                 stmn.close();
                 closeConexion();
             } catch (Exception ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                Logger.getLogger(PreguntaDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
         return salida;
@@ -211,7 +209,7 @@ public class PreguntaDAO {
                 stmn.close();
                 closeConexion();
             } catch (Exception ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                Logger.getLogger(PreguntaDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
         return c;
@@ -233,7 +231,7 @@ public class PreguntaDAO {
                 stmn.close();
                 closeConexion();
             } catch (Exception ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                Logger.getLogger(PreguntaDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
                 return salida;
             }
         }
@@ -262,7 +260,7 @@ public class PreguntaDAO {
                 stmn.close();
                 closeConexion();
             } catch (Exception ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                Logger.getLogger(PreguntaDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
                 return salida;
             }
         }
