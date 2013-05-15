@@ -7,6 +7,7 @@ import Model.PreguntaDAO;
 import Model.ResultadoExamenDAO;
 import Model.Usuario;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -58,6 +59,12 @@ public class Estadisticas extends HttpServlet {
 
             List<String> temas = PreguntaDAO.numTemas();
             request.setAttribute("unitList", temas);
+            
+            List<String> progresoTemas = new ArrayList<String>();
+            for(int i=0; i<temas.size(); i++){
+                float tema = ResultadoExamenDAO.getProgresoTema(u.getDni(), Integer.parseInt(temas.get(i)));
+                progresoTemas.add(""+tema);
+            }
 
             rd = request.getRequestDispatcher("/WEB-INF/user/estadisticas/mostrar.jsp");
             rd.forward(request, response);
