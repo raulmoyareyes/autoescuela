@@ -188,12 +188,7 @@ public class ResultadoExamenDAO {
         int maxRows = 30;
         if (openConexion() != null) {
             try {
-                String qry = "select RESULTADOSEXAMEN.* "
-                        + "    from RESULTADOSEXAMEN, RESULTADOSPREGUNTAS, PREGUNTAS "
-                        + "    where RESULTADOSEXAMEN.ID = RESULTADOSPREGUNTAS.EXAMEN "
-                        + "        and RESULTADOSPREGUNTAS.PREGUNTA = PREGUNTAS.ID "
-                        + "        and RESULTADOSEXAMEN.USUARIO=? and PREGUNTAS.TEMA=? "
-                        + "    order by RESULTADOSEXAMEN.FECHAHORA DESC;";
+                String qry = "select distinct RESULTADOSEXAMEN.* from RESULTADOSEXAMEN, RESULTADOSPREGUNTAS, PREGUNTAS where RESULTADOSEXAMEN.ID = RESULTADOSPREGUNTAS.EXAMEN and RESULTADOSPREGUNTAS.PREGUNTA = PREGUNTAS.ID and RESULTADOSEXAMEN.USUARIO=? and PREGUNTAS.TEMA=? order by RESULTADOSEXAMEN.FECHAHORA DESC";
                 PreparedStatement stmn = cnx.prepareStatement(qry);
                 stmn.setString(1, DNI);
                 stmn.setInt(2, tema);
