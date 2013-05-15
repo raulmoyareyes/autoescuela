@@ -31,7 +31,9 @@
                         <div class="bar bar-success" style="width: 25%;">Tema ${u} - 25%</div>
                     </div>
                 </c:forEach>
+                <c:forEach var="p" items="${progressT}" varStatus="estadoT">${p}</c:forEach>
                 
+
             </div>
         </div>
     </section>

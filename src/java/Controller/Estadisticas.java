@@ -65,6 +65,8 @@ public class Estadisticas extends HttpServlet {
                 float tema = ResultadoExamenDAO.getProgresoTema(u.getDni(), Integer.parseInt(temas.get(i)));
                 progresoTemas.add(""+tema);
             }
+            
+            request.setAttribute("progressT", progresoTemas);
 
             rd = request.getRequestDispatcher("/WEB-INF/user/estadisticas/mostrar.jsp");
             rd.forward(request, response);
