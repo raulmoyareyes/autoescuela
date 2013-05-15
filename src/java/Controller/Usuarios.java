@@ -32,12 +32,6 @@ public class Usuarios extends HttpServlet {
             throws ServletException, IOException {
 
         response.setContentType("text/html;charset=UTF-8");
-        
-        HttpSession session = request.getSession();
-        if(session.getAttribute("currentUser")==null){
-            response.sendRedirect("/autoescuela/login");
-            return;
-        }
 
         String action = (request.getPathInfo() != null ? request.getPathInfo() : "");
         String srvUrl = request.getContextPath() + request.getServletPath();
@@ -45,73 +39,88 @@ public class Usuarios extends HttpServlet {
         RequestDispatcher rd;
         request.setAttribute("srvUrl", srvUrl);
 
-        if (action.equals("/nuevo")) { /////////////////////////////////////////
+        HttpSession session = request.getSession();
+        Usuario cU = (Usuario) session.getAttribute("currentUser");
+        if (session.getAttribute("currentUser") == null) {
+            response.sendRedirect("/autoescuela/login");
+            return;
+        } else {
 
-            if (request.getParameter("crear") != null) {
-                if (nuevoUsuario(request, response)) {
-                    response.sendRedirect("listado");
-                } else {
-                    request.setAttribute("noCreado", true);
-                    rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/nuevo.jsp");
+            if (cU.getGrupo() == 1) {
+
+                if (action.equals("/nuevo")) { /////////////////////////////////////////
+
+                    if (request.getParameter("crear") != null) {
+                        if (nuevoUsuario(request, response)) {
+                            response.sendRedirect("listado");
+                        } else {
+                            request.setAttribute("noCreado", true);
+                            rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/nuevo.jsp");
+                            rd.forward(request, response);
+                        }
+                    } else {
+                        rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/nuevo.jsp");
+                        rd.forward(request, response);
+                    }
+
+                } else if (action.equals("/listado")) { ////////////////////////////////
+
+                    List<Usuario> userList = UsuarioDAO.buscaTodos();
+                    request.setAttribute("userList", userList);
+                    rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/listado.jsp");
                     rd.forward(request, response);
+
+                } else if (action.equals("/preparados")) { /////////////////////////////
+
+                    List<Usuario> userList = UsuarioDAO.preparados();
+                    request.setAttribute("userList", userList);
+                    rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/preparados.jsp");
+                    rd.forward(request, response);
+
+                } else if (action.equals("/modifica")) { ///////////////////////////////
+
+                    String dni = (String) request.getParameter("id");
+                    Usuario u = UsuarioDAO.buscaDNI(dni);
+                    request.setAttribute("user", u);
+                    if (request.getParameter("guardar") != null) {
+                        if (modificaUsuario(request, response)) {
+                            response.sendRedirect("listado");
+                        } else {
+                            request.setAttribute("noModificado", true);
+                            rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/modifica.jsp");
+                            rd.forward(request, response);
+                        }
+                    } else {
+                        rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/modifica.jsp");
+                        rd.forward(request, response);
+                    }
+
+                } else if (action.equals("/elimina")) { ////////////////////////////////
+
+                    String dni = (String) request.getParameter("id");
+                    Usuario u = UsuarioDAO.buscaDNI(dni);
+                    request.setAttribute("user", u);
+
+                    if (UsuarioDAO.eliminaUsuario(u)) {
+                        response.sendRedirect("listado");
+                    } else {
+                        request.setAttribute("noEliminado", true);
+                        rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/listado.jsp");
+                        rd.forward(request, response);
+                    }
+
+
+                } else { ///////////////////////////////////////////////////////////////
+
+                    response.sendRedirect("usuarios/listado");
+
                 }
             } else {
-                rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/nuevo.jsp");
-                rd.forward(request, response);
+                response.sendRedirect("/autoescuela/estadisticas/mostrar");
             }
-
-        } else if (action.equals("/listado")) { ////////////////////////////////
-
-            List<Usuario> userList = UsuarioDAO.buscaTodos();
-            request.setAttribute("userList", userList);
-            rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/listado.jsp");
-            rd.forward(request, response);
-
-        } else if (action.equals("/preparados")) { /////////////////////////////
-
-            List<Usuario> userList = UsuarioDAO.preparados();
-            request.setAttribute("userList", userList);
-            rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/preparados.jsp");
-            rd.forward(request, response);
-
-        } else if (action.equals("/modifica")) { ///////////////////////////////
-
-            String dni = (String) request.getParameter("id");
-            Usuario u = UsuarioDAO.buscaDNI(dni);
-            request.setAttribute("user", u);
-            if (request.getParameter("guardar") != null) {
-                if (modificaUsuario(request, response)) {
-                    response.sendRedirect("listado");
-                } else {
-                    request.setAttribute("noModificado", true);
-                    rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/modifica.jsp");
-                    rd.forward(request, response);
-                }
-            } else {
-                rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/modifica.jsp");
-                rd.forward(request, response);
-            }
-
-        } else if (action.equals("/elimina")) { ////////////////////////////////
-
-            String dni = (String) request.getParameter("id");
-            Usuario u = UsuarioDAO.buscaDNI(dni);
-            request.setAttribute("user", u);
-
-            if (UsuarioDAO.eliminaUsuario(u)) {
-                response.sendRedirect("listado");
-            } else {
-                request.setAttribute("noEliminado", true);
-                rd = request.getRequestDispatcher("/WEB-INF/admin/usuarios/listado.jsp");
-                rd.forward(request, response);
-            }
-
-
-        } else { ///////////////////////////////////////////////////////////////
-
-            response.sendRedirect("usuarios/listado");
-
         }
+
+
     }
 
     private boolean nuevoUsuario(HttpServletRequest request, HttpServletResponse response) {

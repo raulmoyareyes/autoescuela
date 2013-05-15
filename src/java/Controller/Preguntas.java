@@ -50,92 +50,119 @@ public class Preguntas extends HttpServlet {
         List<String> temas = PreguntaDAO.numTemas();
         request.setAttribute("unitList", temas);
 
-
-        HttpSession session = request.getSession();
-        if (session.getAttribute("currentUser") == null) {
-            response.sendRedirect("/autoescuela/login");
-            return;
-        }
-
         RequestDispatcher rd;
         request.setAttribute("srvUrl", srvUrl);
-        if (action.equals("/listado")) { ///////////////////////////////////////
 
-            List<Pregunta> questList = PreguntaDAO.buscaTodas();
-            request.setAttribute("questList", questList);
-            rd = request.getRequestDispatcher("/WEB-INF/admin/preguntas/listado.jsp");
-            rd.forward(request, response);
+        HttpSession session = request.getSession();
+        Usuario cU = (Usuario) session.getAttribute("currentUser");
 
-        } else if (action.equals("/modifica")) { ///////////////////////////////
-
-            int id = Integer.parseInt(request.getParameter("id"));
-            Pregunta p = PreguntaDAO.buscaID(id);
-            request.setAttribute("quest", p);
-            if (request.getParameter("guardar") != null) {
-                if (modificaPregunta(request, response)) {
-                    response.sendRedirect("listado");
-                } else {
-                    request.setAttribute("noModificada", true);
-                    rd = request.getRequestDispatcher("/WEB-INF/admin/preguntas/modifica.jsp");
-                    rd.forward(request, response);
-                }
-            } else {
-                rd = request.getRequestDispatcher("/WEB-INF/admin/preguntas/modifica.jsp");
-                rd.forward(request, response);
-            }
-
-        } else if (action.equals("/nueva")) { //////////////////////////////////
-
-            if (request.getParameter("crear") != null) {
-                if (nuevaPregunta(request, response)) {
-                    response.sendRedirect("listado");
-                } else {
-                    request.setAttribute("noCreada", true);
-                    rd = request.getRequestDispatcher("/WEB-INF/admin/preguntas/nueva.jsp");
-                    rd.forward(request, response);
-                }
-            } else {
-                rd = request.getRequestDispatcher("/WEB-INF/admin/preguntas/nueva.jsp");
-                rd.forward(request, response);
-            }
-
-        } else if (action.equals("/elimina")) { ////////////////////////////////
-
-            int id = Integer.parseInt(request.getParameter("id"));
-            Pregunta p = PreguntaDAO.buscaID(id);
-            request.setAttribute("quets", p);
-
-            if (PreguntaDAO.eliminaPregunta(p)) {
-                response.sendRedirect("listado");
-            } else {
-                request.setAttribute("noEliminada", true);
-                rd = request.getRequestDispatcher("/WEB-INF/admin/preguntas/listado.jsp");
-                rd.forward(request, response);
-            }
-
-        } else if (action.equals("/test")) { ///////////////////////////////////
-
-            List<Pregunta> questList;
-
-            if (request.getParameter("corregir") != null) {
-
-                questList = corregirExamen(request, response);
-
-            } else {
-                if (request.getParameter("tema").equals("global")) {
-                    questList = PreguntaDAO.buscaTemaGlobal(30);
-                } else {
-                    int tema = Integer.parseInt(request.getParameter("tema"));
-                    questList = PreguntaDAO.buscaTema(tema, 30);
-                }
-            }
-
-            request.setAttribute("questList", questList);
-            rd = request.getRequestDispatcher("/WEB-INF/user/preguntas/test.jsp");
-            rd.forward(request, response);
-
+        if (session.getAttribute("currentUser") == null) {
+            response.sendRedirect("/autoescuela/login");
         } else {
-            response.sendRedirect("preguntas/listado");
+
+            if (cU.getGrupo() == 1) {
+                if (action.equals("/listado")) { ///////////////////////////////////////
+
+                    List<Pregunta> questList = PreguntaDAO.buscaTodas();
+                    request.setAttribute("questList", questList);
+                    rd = request.getRequestDispatcher("/WEB-INF/admin/preguntas/listado.jsp");
+                    rd.forward(request, response);
+
+                } else if (action.equals("/modifica")) { ///////////////////////////////
+
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    Pregunta p = PreguntaDAO.buscaID(id);
+                    request.setAttribute("quest", p);
+                    if (request.getParameter("guardar") != null) {
+                        if (modificaPregunta(request, response)) {
+                            response.sendRedirect("listado");
+                        } else {
+                            request.setAttribute("noModificada", true);
+                            rd = request.getRequestDispatcher("/WEB-INF/admin/preguntas/modifica.jsp");
+                            rd.forward(request, response);
+                        }
+                    } else {
+                        rd = request.getRequestDispatcher("/WEB-INF/admin/preguntas/modifica.jsp");
+                        rd.forward(request, response);
+                    }
+
+                } else if (action.equals("/nueva")) { //////////////////////////////////
+
+                    if (request.getParameter("crear") != null) {
+                        if (nuevaPregunta(request, response)) {
+                            response.sendRedirect("listado");
+                        } else {
+                            request.setAttribute("noCreada", true);
+                            rd = request.getRequestDispatcher("/WEB-INF/admin/preguntas/nueva.jsp");
+                            rd.forward(request, response);
+                        }
+                    } else {
+                        rd = request.getRequestDispatcher("/WEB-INF/admin/preguntas/nueva.jsp");
+                        rd.forward(request, response);
+                    }
+
+                } else if (action.equals("/test")) { ///////////////////////////////////
+
+                    List<Pregunta> questList;
+                    if (request.getParameter("corregir") != null) {
+                        questList = corregirExamen(request, response);
+
+                    } else {
+                        if (request.getParameter("tema").equals("global")) {
+                            questList = PreguntaDAO.buscaTemaGlobal(30);
+                        } else {
+                            int tema = Integer.parseInt(request.getParameter("tema"));
+                            questList = PreguntaDAO.buscaTema(tema, 30);
+                        }
+                    }
+
+                    request.setAttribute("questList", questList);
+                    rd = request.getRequestDispatcher("/WEB-INF/user/preguntas/test.jsp");
+                    rd.forward(request, response);
+                    
+                } else if (action.equals("/elimina")) { ////////////////////////////////
+
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    Pregunta p = PreguntaDAO.buscaID(id);
+                    request.setAttribute("quets", p);
+
+                    if (PreguntaDAO.eliminaPregunta(p)) {
+                        response.sendRedirect("listado");
+                    } else {
+                        request.setAttribute("noEliminada", true);
+                        rd = request.getRequestDispatcher("/WEB-INF/admin/preguntas/listado.jsp");
+                        rd.forward(request, response);
+                    }
+
+                } else {
+                    response.sendRedirect("preguntas/listado");
+                }
+            } else {
+
+                if (action.equals("/test")) { ///////////////////////////////////
+
+                    List<Pregunta> questList;
+                    if (request.getParameter("corregir") != null) {
+                        questList = corregirExamen(request, response);
+
+                    } else {
+                        if (request.getParameter("tema").equals("global")) {
+                            questList = PreguntaDAO.buscaTemaGlobal(30);
+                        } else {
+                            int tema = Integer.parseInt(request.getParameter("tema"));
+                            questList = PreguntaDAO.buscaTema(tema, 30);
+                        }
+                    }
+
+                    request.setAttribute("questList", questList);
+                    rd = request.getRequestDispatcher("/WEB-INF/user/preguntas/test.jsp");
+                    rd.forward(request, response);
+
+                } else {
+                    response.sendRedirect("estadisticas/mostrar");
+                }
+
+            }
         }
 
     }
@@ -215,10 +242,12 @@ public class Preguntas extends HttpServlet {
         String respuesta2 = request.getParameter("respuesta2");
         String respuesta3 = request.getParameter("respuesta3");
         int respuestaCorrecta = Integer.parseInt(request.getParameter("radioRespuesta"));
-        int tema = 0;
+        int tema;
         try {
             tema = Integer.parseInt(request.getParameter("tema"));
-        } catch (NumberFormatException ex) { return false; }
+        } catch (NumberFormatException ex) {
+            return false;
+        }
         String imagen = "no_image.png";
 
         Pregunta p = new Pregunta(enunciado, respuesta1, respuesta2, respuesta3, respuestaCorrecta, tema, imagen);
@@ -236,10 +265,12 @@ public class Preguntas extends HttpServlet {
         String respuesta2 = request.getParameter("respuesta2");
         String respuesta3 = request.getParameter("respuesta3");
         int respuestaCorrecta = Integer.parseInt(request.getParameter("radioRespuesta"));
-        int tema = 0;
+        int tema;
         try {
             tema = Integer.parseInt(request.getParameter("tema"));
-        } catch (NumberFormatException ex) { return false; }
+        } catch (NumberFormatException ex) {
+            return false;
+        }
         String imagen = "no_image.png";
 
         int id = Integer.parseInt(request.getParameter("id"));
