@@ -4,8 +4,6 @@
 
 package Model;
 
-import static Model.ResultadoExamenDAO.closeConexion;
-import static Model.ResultadoExamenDAO.openConexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,7 +29,7 @@ public class ResultadoPreguntaDAO {
             cnx = ds.getConnection();
 
         } catch (Exception ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            Logger.getLogger(ResultadoPreguntaDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
 
         return cnx;
@@ -41,7 +39,7 @@ public class ResultadoPreguntaDAO {
         try {
             cnx.close();
         } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            Logger.getLogger(ResultadoPreguntaDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
     
@@ -50,7 +48,7 @@ public class ResultadoPreguntaDAO {
         try {
             p = new ResultadoPregunta(rs.getInt("examen"), rs.getInt("pregunta"), rs.getInt("resultado"));
         } catch (Exception ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            Logger.getLogger(ResultadoPreguntaDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
         return p;
     }
@@ -69,7 +67,7 @@ public class ResultadoPreguntaDAO {
                 stmn.close();
                 closeConexion();
             } catch (Exception ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                Logger.getLogger(ResultadoPreguntaDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
         return c;
@@ -93,7 +91,7 @@ public class ResultadoPreguntaDAO {
                 stmn.close();
                 closeConexion();
             } catch (Exception ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                Logger.getLogger(ResultadoPreguntaDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
         return salida;

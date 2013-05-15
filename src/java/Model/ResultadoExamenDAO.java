@@ -4,8 +4,6 @@
  */
 package Model;
 
-import static Model.UsuarioDAO.closeConexion;
-import static Model.UsuarioDAO.openConexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,7 +28,7 @@ public class ResultadoExamenDAO {
             cnx = ds.getConnection();
 
         } catch (Exception ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            Logger.getLogger(ResultadoExamenDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
 
         return cnx;
@@ -40,7 +38,7 @@ public class ResultadoExamenDAO {
         try {
             cnx.close();
         } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            Logger.getLogger(ResultadoExamenDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
 
@@ -50,7 +48,7 @@ public class ResultadoExamenDAO {
             //int _id, int _fechaHora, int _acertadas, int _falladas, int _blanco, String _usuario
             p = new ResultadoExamen(rs.getInt("id"), rs.getInt("fechahora"), rs.getInt("acertadas"), rs.getInt("falladas"), rs.getInt("blanco"), rs.getString("usuario"));
         } catch (Exception ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            Logger.getLogger(ResultadoExamenDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
         return p;
     }
@@ -69,7 +67,7 @@ public class ResultadoExamenDAO {
                 stmn.close();
                 closeConexion();
             } catch (Exception ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                Logger.getLogger(ResultadoExamenDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
         return c;
@@ -94,7 +92,7 @@ public class ResultadoExamenDAO {
                 stmn.close();
                 closeConexion();
             } catch (Exception ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                Logger.getLogger(ResultadoExamenDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
         return salida;
@@ -113,7 +111,7 @@ public class ResultadoExamenDAO {
                 stmn.close();
                 closeConexion();
             } catch (Exception ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                Logger.getLogger(ResultadoExamenDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
         return c;
@@ -150,7 +148,7 @@ public class ResultadoExamenDAO {
                 stmn.close();
                 closeConexion();
             } catch (Exception ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                Logger.getLogger(ResultadoExamenDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
         return (float) numAcertadas / (float) maxRows * (float) 100.0;
@@ -170,7 +168,7 @@ public class ResultadoExamenDAO {
                 stmn.close();
                 closeConexion();
             } catch (Exception ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                Logger.getLogger(ResultadoExamenDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
         return num;
@@ -209,7 +207,7 @@ public class ResultadoExamenDAO {
                 stmn.close();
                 closeConexion();
             } catch (Exception ex) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                Logger.getLogger(ResultadoExamenDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
         return (float) numAcertadas / (float) maxRows * (float) 100.0;
