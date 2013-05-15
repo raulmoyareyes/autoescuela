@@ -143,62 +143,62 @@ public class Preguntas extends HttpServlet {
     private List<Pregunta> corregirExamen(HttpServletRequest request, HttpServletResponse response) {
 
         List<Pregunta> questList = new ArrayList<Pregunta>();
-        
+
         String listId = request.getParameter("listId");
         String[] ids = listId.split(",");
-        
-        for(int i=0; i<ids.length; i++){
+
+        for (int i = 0; i < ids.length; i++) {
             int id = Integer.parseInt(ids[i]);
             Pregunta p = PreguntaDAO.buscaID(id);
             questList.add(p);
         }
-        
-        List<Integer> respuestas = respuestasExamen(request,response, questList);
-        int buenas=0, sinContestar=0, fallidas=0;
-        for(int i=0; i<respuestas.size(); i++){
-            if(questList.get(i).getRespuestaCorrecta() == respuestas.get(i)){
+
+        List<Integer> respuestas = respuestasExamen(request, response, questList);
+        int buenas = 0, sinContestar = 0, fallidas = 0;
+        for (int i = 0; i < respuestas.size(); i++) {
+            if (questList.get(i).getRespuestaCorrecta() == respuestas.get(i)) {
                 buenas++;
-            } else if(respuestas.get(i) == -1 ){
+            } else if (respuestas.get(i) == -1) {
                 sinContestar++;
             } else {
                 fallidas++;
             }
         }
-        
+
         request.setAttribute("fallidas", fallidas);
         request.setAttribute("buenas", buenas);
         request.setAttribute("sin", sinContestar);
         request.setAttribute("corregir", true);
-        
+
         HttpSession session = request.getSession();
-        Usuario user = (Usuario)session.getAttribute("currentUser");
-        
+        Usuario user = (Usuario) session.getAttribute("currentUser");
+
         ResultadoExamen resultado = new ResultadoExamen(buenas, fallidas, sinContestar, user.getDni());
         ResultadoExamenDAO.insertaResultadoExamen(resultado);
-        
-        for(int i=0; i<respuestas.size(); i++){
+
+        for (int i = 0; i < respuestas.size(); i++) {
             ResultadoPregunta r = new ResultadoPregunta();
             r.setExamen(ResultadoExamenDAO.ultimo());
             r.setPregunta(questList.get(i).getId());
-            if(questList.get(i).getRespuestaCorrecta() == respuestas.get(i)){
+            if (questList.get(i).getRespuestaCorrecta() == respuestas.get(i)) {
                 r.setResultado(0);
-            } else if(respuestas.get(i) == -1 ){
+            } else if (respuestas.get(i) == -1) {
                 r.setResultado(2);
             } else {
                 r.setResultado(1);
             }
             ResultadoPreguntaDAO.insertaResultadoPregunta(r);
         }
-        
+
         return questList;
     }
-    
-    private List<Integer> respuestasExamen(HttpServletRequest request, HttpServletResponse response, List<Pregunta> questList){
+
+    private List<Integer> respuestasExamen(HttpServletRequest request, HttpServletResponse response, List<Pregunta> questList) {
         List<Integer> resList = new ArrayList<Integer>();
-        
-        for(int i=0; i<questList.size(); i++){
-            String id=String.valueOf(questList.get(i).getId());
-            if(request.getParameter(id)!=null){
+
+        for (int i = 0; i < questList.size(); i++) {
+            String id = String.valueOf(questList.get(i).getId());
+            if (request.getParameter(id) != null) {
                 resList.add(Integer.parseInt(request.getParameter(id)));
             } else {
                 resList.add(-1);
@@ -215,7 +215,10 @@ public class Preguntas extends HttpServlet {
         String respuesta2 = request.getParameter("respuesta2");
         String respuesta3 = request.getParameter("respuesta3");
         int respuestaCorrecta = Integer.parseInt(request.getParameter("radioRespuesta"));
-        int tema = Integer.parseInt(request.getParameter("tema"));
+        int tema = 0;
+        try {
+            tema = Integer.parseInt(request.getParameter("tema"));
+        } catch (NumberFormatException ex) { return false; }
         String imagen = "no_image.png";
 
         Pregunta p = new Pregunta(enunciado, respuesta1, respuesta2, respuesta3, respuestaCorrecta, tema, imagen);
@@ -233,7 +236,10 @@ public class Preguntas extends HttpServlet {
         String respuesta2 = request.getParameter("respuesta2");
         String respuesta3 = request.getParameter("respuesta3");
         int respuestaCorrecta = Integer.parseInt(request.getParameter("radioRespuesta"));
-        int tema = Integer.parseInt(request.getParameter("tema"));
+        int tema = 0;
+        try {
+            tema = Integer.parseInt(request.getParameter("tema"));
+        } catch (NumberFormatException ex) { return false; }
         String imagen = "no_image.png";
 
         int id = Integer.parseInt(request.getParameter("id"));
