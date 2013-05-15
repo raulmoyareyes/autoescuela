@@ -125,7 +125,7 @@ public class Usuarios extends HttpServlet {
         String password2 = request.getParameter("pass2");
 
         int grupo;
-        if (request.getParameter("tipo").equals("Alumno")) {
+        if (request.getParameter("tipo").equals("alumno")) {
             grupo = 0;
         } else {
             grupo = 1;
