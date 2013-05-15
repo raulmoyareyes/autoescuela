@@ -175,4 +175,63 @@ public class ResultadoExamenDAO {
         }
         return num;
     }
+
+    /**
+     * Devuelve el progreso del alumno
+     *
+     * @param DNI DNI del alumno
+     * @param tema Tema
+     * @return Número entre 0 y 100 indicando del progreso del alumno
+     */
+    public static float getProgresoTema(String DNI, int tema) {/*
+        int numAcertadas = 0;
+        int maxRows = 30;
+        if (openConexion() != null) {
+            try {
+                String qry = "SELECT * FROM resultadosexamen WHERE usuario=? ORDER BY fechahora DESC";
+                PreparedStatement stmn = cnx.prepareStatement(qry);
+                stmn.setString(1, DNI);
+                stmn.setMaxRows(maxRows);
+                ResultSet rs = stmn.executeQuery();
+                while (rs.next()) {
+                    int acertadas = Integer.parseInt(rs.getString("acertadas"));
+                    int falladas = Integer.parseInt(rs.getString("falladas"));
+                    int blanco = Integer.parseInt(rs.getString("blanco"));
+                    int total = acertadas + falladas + blanco;
+                    int maxAprobar = (int) Math.floor(0.9 * (float) total);
+
+                    if (acertadas >= maxAprobar) {
+                        ++numAcertadas;
+                    }
+                }
+                rs.close();
+                stmn.close();
+                closeConexion();
+            } catch (Exception ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            }
+        }
+        return (float) numAcertadas / (float) maxRows * (float) 100.0;
+    }
+
+    public static int numExamenes(String DNI) {
+        int num=0;
+        if (openConexion() != null) {
+            try {
+                String qry = "SELECT COUNT(id) NUM FROM resultadosexamen WHERE usuario=?";
+                PreparedStatement stmn = cnx.prepareStatement(qry);
+                stmn.setString(1, DNI);
+                ResultSet rs = stmn.executeQuery();
+                rs.next();
+                num = rs.getInt("num");
+                rs.close();
+                stmn.close();
+                closeConexion();
+            } catch (Exception ex) {
+                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            }
+        }
+        return num;*/
+        return (float)0.5;
+    }
 }
