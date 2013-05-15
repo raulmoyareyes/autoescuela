@@ -1,5 +1,8 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c-rt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="/WEB-INF/user/cabecera.jsp?op=stats"/>
 <!-- container -->
 <div class="row">
@@ -25,15 +28,13 @@
             </div>
             <div>
                 <h5>Progreso por temas</h5>
-
                 <c:forEach var="u" items="${unitList}" varStatus="estado">
                     <div class="progress">
-                        <div class="bar bar-success" style="width: 25%;">Tema ${u} - 25%</div>
+                        <div class="bar bar-success" style="width: ${progressT[estado.count-1]}%;">
+                            Tema ${u} - ${progressT[estado.count-1]}%
+                        </div>
                     </div>
                 </c:forEach>
-                <c:forEach var="p" items="${progressT}" varStatus="estadoT">${p}</c:forEach>
-                
-
             </div>
         </div>
     </section>
