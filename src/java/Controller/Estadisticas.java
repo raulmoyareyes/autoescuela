@@ -43,21 +43,22 @@ public class Estadisticas extends HttpServlet {
         String action = (request.getPathInfo() != null ? request.getPathInfo() : "");
         String srvUrl = request.getContextPath() + request.getServletPath();
 
-        List<String> temas = PreguntaDAO.numTemas();
-        request.setAttribute("unitList", temas);
 
         RequestDispatcher rd;
         request.setAttribute("srvUrl", srvUrl);
 
         if (action.equals("/mostrar")) {
-            
+
             Usuario u = (Usuario) session.getAttribute("currentUser");
             float progreso = ResultadoExamenDAO.getProgreso(u.getDni());
             request.setAttribute("progresoG", progreso);
-            
+
             int num = ResultadoExamenDAO.numExamenes(u.getDni());
             request.setAttribute("numExam", num);
-            
+
+            List<String> temas = PreguntaDAO.numTemas();
+            request.setAttribute("unitList", temas);
+
             rd = request.getRequestDispatcher("/WEB-INF/user/estadisticas/mostrar.jsp");
             rd.forward(request, response);
 

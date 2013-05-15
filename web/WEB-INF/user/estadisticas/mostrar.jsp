@@ -25,18 +25,13 @@
             </div>
             <div>
                 <h5>Progreso por temas</h5>
-                <div class="progress">
-                    <div class="bar bar-success" style="width: 25%;">Tema 1 - 25%</div>
-                </div>
-                <div class="progress">
-                    <div class="bar bar-success" style="width: 65%;">Tema 2 - 65%</div>
-                </div>
-                <div class="progress">
-                    <div class="bar bar-success" style="width: 35%;">Tema 3 - 35%</div>
-                </div>
-                <div class="progress">
-                    <div class="bar bar-success" style="width: 55%;">Tema 4 - 55%</div>
-                </div>
+
+                <c:forEach var="u" items="${unitList}" varStatus="estado">
+                    <div class="progress">
+                        <div class="bar bar-success" style="width: 25%;">Tema ${u} - 25%</div>
+                    </div>
+                </c:forEach>
+                
             </div>
         </div>
     </section>
