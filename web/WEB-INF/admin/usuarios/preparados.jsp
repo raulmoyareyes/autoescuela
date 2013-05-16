@@ -20,6 +20,7 @@
                         <th>DNI</th>
                         <th>Dirección</th>
                         <th>Teléfono</th>
+                        <th>Ver</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,6 +31,7 @@
                             <td>${u.dni}</td>
                             <td>${u.direccion}</td>
                             <td>${u.telefono}</td>
+                            <th><i class="icon-eye-open"></i></th>
                         </tr>
                     </c:forEach>
                 </tbody>
