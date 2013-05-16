@@ -39,9 +39,9 @@
                                     <div class="inBl width60">
                                         <p>${p.enunciado}</p>
                                         <div class="controls">
-                                            <label for="radioRespuesta1" class="radio">${p.respuesta1}<input id="radioRespuesta1" type="radio" name="${p.id}" value="1" ${(corregir!=null && p.respuestaCorrecta==1)?'checked':''} /></label>
-                                            <label for="radioRespuesta2" class="radio">${p.respuesta2}<input id="radioRespuesta2" type="radio" name="${p.id}" value="2" ${(corregir!=null && p.respuestaCorrecta==2)?'checked':''} /></label>
-                                            <label for="radioRespuesta3" class="radio">${p.respuesta3}<input id="radioRespuesta3" type="radio" name="${p.id}" value="3" ${(corregir!=null && p.respuestaCorrecta==3)?'checked':''} /></label>
+                                            <label for="radioRespuesta1${p.id}" class="radio">${p.respuesta1}<input id="radioRespuesta1${p.id}" type="radio" name="${p.id}" value="1" ${(corregir!=null && p.respuestaCorrecta==1)?'checked':''} /></label>
+                                            <label for="radioRespuesta2${p.id}" class="radio">${p.respuesta2}<input id="radioRespuesta2${p.id}" type="radio" name="${p.id}" value="2" ${(corregir!=null && p.respuestaCorrecta==2)?'checked':''} /></label>
+                                            <label for="radioRespuesta3${p.id}" class="radio">${p.respuesta3}<input id="radioRespuesta3${p.id}" type="radio" name="${p.id}" value="3" ${(corregir!=null && p.respuestaCorrecta==3)?'checked':''} /></label>
                                         </div>
                                     </div>
                                 </div>
